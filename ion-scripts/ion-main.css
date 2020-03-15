@@ -123,6 +123,7 @@ app-group {
     align-items: stretch;
     flex-grow: 1;
     flex-shrink: 0;
+    z-index: 0;
 }
 
 .app-group left-right {
@@ -141,11 +142,14 @@ app-panel {
     flex-shrink: 0;
     box-sizing: border-box;
     border: var(--ion-app-panel-border-size) solid var(--ion-app-panel-border-color);
+    z-index: 0;
 }
 
 app-dragger {
-    background-color: rgba(0,0,0,0);
-    display: inline;
+    background-color: rgb(255,0,0);
+    display: unset;
+    opacity: 0.5;
+    z-index: 20;
 }
 
 .app-dragger.left-right {
