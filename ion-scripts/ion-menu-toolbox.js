@@ -1,4 +1,7 @@
-﻿$('[data-menu]').contextmenu((e) => {
+﻿let app_tip_timeout = 1000;
+
+
+$('[data-menu]').contextmenu((e) => {
     e.preventDefault();
     let ta = $(e.target);
 
@@ -111,6 +114,50 @@ function open_contextmenu(menu, x = null, y = null, level = 0) {
         item.b.setAttribute('onclick', `open_contextmenu("${item.a}",${mex + mw},${mey + item.i * i},${level + 1})`);
     });
 }
+
+let tip_timeout;
+
+$('[data-tip]').mouseover((e) => {
+    let ta = $(e.target);
+
+    let i = 0;
+    while (ta.attr('data-tip') == undefined) {
+        if (i < 50) {
+            i++;
+        } else {
+            return false;
+        }
+        ta = ta.parent();
+    }
+
+    console.log(ta.attr('data-tip'))
+
+    current_tip = ta.attr('data-tip');
+});
+
+$(document).mousemove(() => {
+    let e = Array.prototype.slice.call(document.getElementsByTagName('app-tooltip'));
+    e.forEach((item, index) => {
+        $(item).remove();
+    });
+    clearTimeout(tip_timeout);
+    tip_timeout = setTimeout(() => {
+        let tip = document.createElement('app-tooltip');
+        $(tip).text(current_tip);
+        let mex = mouse_x, mey = mouse_y, mw = Number($(tip).css('width').replace('px', '')), mh = Number($(tip).css('height').replace('px', ''));
+
+        if (mex > window.innerWidth - mw) {
+            mex = mex - mw;
+        }
+        if (mey > window.innerHeight - mh) {
+            mey = mey - mh;
+        }
+
+        $(tip).css('top', mey + 'px').css('left', mex + 'px');
+
+        document.body.appendChild(tip);
+    }, app_tip_timeout);
+});
 
 $(document).mouseup(() => {
     let hover = false;

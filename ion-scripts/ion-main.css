@@ -10,7 +10,7 @@
     --ion-app-titlebar-color:               rgb(0,0,0);
     --ion-app-titlebar-text-color:          rgb(255,255,255);
     --ion-app-main-color:                   rgb(0,0,0);
-    --ion-app-shadow-size:                  10px;
+    --ion-app-shadow-size:                  5px;
     --ion-app-shadow-color:                 rgb(0,0,0);
 
     --ion-app-panel-border-color:           rgb(255,255,255);
@@ -22,6 +22,8 @@
     --ion-app-menu-option-text-color:       #fff;
     --ion-app-menu-option-hover-color:      rgba(255,255,255,0.2);
     --ion-app-menu-option-font:             Segoe UI Light;
+    --ion-app-menu-option-pad:              5px;
+    --ion-app-menu-option-text-size:        16px;
 }
 
 body {
