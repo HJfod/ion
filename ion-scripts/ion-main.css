@@ -15,7 +15,13 @@
 
     --ion-app-panel-border-color:           rgb(255,255,255);
     --ion-app-panel-border-size:            1px;
-    --ion-app-dragger-size:                 5px;
+    --ion-app-dragger-size:                 10px;
+
+    --ion-app-menu-option-height:           22px;
+    --ion-app-menu-background-color:        #000;
+    --ion-app-menu-option-text-color:       #fff;
+    --ion-app-menu-option-hover-color:      rgba(255,255,255,0.2);
+    --ion-app-menu-option-font:             Segoe UI Light;
 }
 
 body {
@@ -23,6 +29,10 @@ body {
     padding: 0;
     background-color: var(--ion-app-main-color);
     overflow: hidden;
+}
+
+button:focus {
+    outline: none;
 }
 
 /*          titlebar           */

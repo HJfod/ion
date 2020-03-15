@@ -10,7 +10,7 @@
 </head>
 <body>
 
-    <app-settings app-name="Test name 2" main-color="#000" shadow-color="rgba(255,255,255,0.2)" panel-color="#aaa"></app-settings>
+    <app-settings app-name="Test name 2" main-color="#000" shadow-color="rgba(255,255,255,0.2)" panel-color="#222"></app-settings>
 
     <app-titlebar name="Test name" background-color="#000" text-color="#fff" onhomeclick="alert('test')"></app-titlebar>
 
@@ -22,7 +22,7 @@
 
                 <app-group direction="top-down">
 
-                    <app-panel size="200px">
+                    <app-panel size="200px" data-menu="a=>{1=>;yes=>{A;B;C};3;4=>};b=>;c=>;d=>{1;2;3;4;yes=>{yes=>{1;2};2;3}}">
 
                         <text>textt</text>
 
@@ -50,7 +50,7 @@
 
             <app-group direction="left-right" size="50px">
 
-                <app-panel>
+                <app-panel data-menu="This=>;Menu=>{Yeah=>;Yeah=>;Yeah=>;Yeah=>;Yeah=>};Is=>;Long=>">
 
                     <text>text text text</text>
 
@@ -61,8 +61,6 @@
         </app-group>
 
     </app-main>
-
-    <app-contextmenu></app-contextmenu>
 
 </body>
 </html>

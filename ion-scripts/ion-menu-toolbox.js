@@ -1,7 +1,5 @@
 ﻿$('[data-menu]').contextmenu((e) => {
     e.preventDefault();
-    let m = $('app-contextmenu');
-
     let ta = $(e.target);
 
     let i = 0;
@@ -14,33 +12,115 @@
         ta = ta.parent();
     }
 
-    let v = ta.attr('data-menu');
-    v = v.split('//');
+    open_contextmenu(ta.attr('data-menu'));
+});
 
-    for (let i = 0; i < v.length; i++) {
-        if (v[i] === '---') {
-            let n_s = document.createElement('text');
-            n_s.innerHTML = '───────────';
-            n_s.setAttribute('class', 'menu_separator');
-            m.append(n_s);
+function open_contextmenu(menu, x = null, y = null, level = 0) {
+    let e = Array.prototype.slice.call(document.getElementsByClassName('app-contextmenu'));
+    e.forEach((item, index) => {
+        if (Number(item.getAttribute('level')) >= Number(level)) {
+            $(item).remove();
+        }
+    });
+
+    let m = document.createElement('div');
+    m.setAttribute('class', 'app-contextmenu');
+    m.setAttribute('level', level);
+
+    let text = [];
+    let sub = menu;
+    let count = 0;
+    let collect = '';
+
+    if (sub.startsWith('{')) {
+        sub = sub.substring(1, sub.length-1);
+    }
+
+    while (sub.length > 0) {
+        switch (sub[0]) {
+            case ';':
+                if (!count) {
+                    text[text.length] = collect;
+                    collect = '';
+                } else {
+                    collect += sub[0];
+                }
+                break;
+            case '{':
+                count++;
+                collect += sub[0];
+                break;
+            case '}':
+                count--;
+                collect += sub[0];
+                break;
+            default:
+                collect += sub[0];
+        }
+        if (sub.length > 1) {
+            sub = sub.substring(1);
         } else {
-            v[i] = v[i].split('=>');
-            let n_o = document.createElement('button');
-            n_o.innerHTML = v[i][0];
-            n_o.setAttribute('class', 'menu_option');
-            n_o.setAttribute('onmouseup', v[i][2]);
-            m.append(n_o);
+            text[text.length] = collect;
+            sub = '';
         }
     }
 
-    let mex = mouse_x, mey = mouse_y;
-    if (mouse_x > window.innerWidth - Number(m.css('width').replace('px', ''))) {
-        mex = mouse_x - Number(m.css('width').replace('px', ''));
-    }
-    if (mouse_y > window.innerHeight - Number(m.css('height').replace('px', ''))) {
-        mey = mouse_y - Number(m.css('height').replace('px', ''));
-    }
-    m.css('left', mex + 'px').css('top', mey + 'px');
+    let add = [];
 
-    m.show();
+    for (let i in text) {
+        let button = document.createElement('button');
+        button.setAttribute('class', 'app-contextmenu-option');
+        button.innerHTML = text[i].split('=>').shift();
+
+        let action = text[i].substring(text[i].split('=>').shift().length+2);
+
+        if (action) {
+            if (action.startsWith('{')) {
+                add[add.length] = { a: action, b: button, i: i };
+            } else {
+                button.setAttribute('onclick', action);
+            }
+        }
+
+        m.appendChild(button);
+    }
+
+    document.body.appendChild(m);
+
+    let mex = mouse_x, mey = mouse_y, mw = Number($(m).css('width').replace('px', '')), mh = Number($(m).css('height').replace('px', ''));
+
+    if ((x && y) !== null) {
+        mex = x;
+        mey = y;
+    }
+
+    if (mex > window.innerWidth - mw) {
+        mex = mex - mw;
+    }
+    if (mey > window.innerHeight - mh) {
+        mey = mey - mh;
+    }
+
+    // console.log(mex + ',' + mey);
+    
+    $(m).css('top', mey + 'px').css('left', mex + 'px');
+    
+    add.forEach((item, index) => {
+        let i = Number((getComputedStyle(html).getPropertyValue('--ion-app-menu-option-height')).replace('px',''));
+
+        item.b.setAttribute('onclick', `open_contextmenu("${item.a}",${mex + mw},${mey + item.i * i},${level + 1})`);
+    });
+}
+
+$(document).mouseup(() => {
+    let hover = false;
+    let e = Array.prototype.slice.call(document.getElementsByClassName('app-contextmenu'));
+    e.forEach((item, index) => {
+        if ($(item).is(':hover')) {
+            hover = true;
+        }
+    });
+    if (!hover) {
+        $('.app-contextmenu').remove();
+    }
 });
