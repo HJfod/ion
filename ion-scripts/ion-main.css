@@ -8,16 +8,23 @@
     --ion-app-home-hover-color:             rgba(255,255,255,0.2);
     --ion-app-home-margin:                  10px;
     --ion-app-titlebar-color:               rgb(0,0,0);
+    --ion-app-titlebar-text-color:          rgb(255,255,255);
     --ion-app-main-color:                   rgb(0,0,0);
     --ion-app-shadow-size:                  10px;
     --ion-app-shadow-color:                 rgb(0,0,0);
+
+    --ion-app-panel-border-color:           rgb(255,255,255);
+    --ion-app-panel-border-size:            1px;
 }
 
 body {
     margin: 0;
     padding: 0;
     background-color: var(--ion-app-main-color);
+    overflow: hidden;
 }
+
+/*          titlebar           */
 
 .app-titlebar {
     background-color: var(--ion-app-titlebar-color);
@@ -81,4 +88,43 @@ body {
     font-family: var(--ion-app-home-font);
     color: var(--ion-app-home-title-color);
     position: absolute;
+}
+
+/*          panels           */
+
+.app-main {
+    position: absolute;
+    top: var(--ion-app-home-titlebar-size);
+    height: calc( 100% - var(--ion-app-home-titlebar-size) );
+    width: 100%;
+    display: flex;
+    align-items: stretch;
+    flex-grow: 1;
+    flex-shrink: 0;
+    flex-wrap: wrap;
+}
+
+app-group {
+    display: flex;
+    align-items: stretch;
+    flex-grow: 1;
+    flex-shrink: 0;
+}
+
+.app-group left-right {
+    flex-direction: row;
+}
+
+.app-group top-down {
+    flex-direction: column;
+}
+
+app-panel {
+    display: flex;
+    color: #fff;
+    align-items: stretch;
+    flex-grow: 1;
+    flex-shrink: 0;
+    box-sizing: border-box;
+    border: var(--ion-app-panel-border-size) solid var(--ion-app-panel-border-color);
 }

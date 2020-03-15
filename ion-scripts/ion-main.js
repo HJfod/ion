@@ -1,4 +1,6 @@
 const panels = document.getElementsByTagName('panel');
+const groups = document.getElementsByTagName('group');
+const app = document.getElementsByTagName('app')[0];
 const titlebar = document.getElementsByTagName('app-titlebar')[0];
 const settings = document.getElementsByTagName('app-settings')[0];
 const ipc = require('electron').ipcRenderer;
@@ -9,11 +11,9 @@ const html = document.documentElement;
 document.title = settings.getAttribute('app-name');
 html.style.setProperty('--ion-app-main-color', settings.getAttribute('main-color'));
 html.style.setProperty('--ion-app-shadow-color', settings.getAttribute('shadow-color'));
+html.style.setProperty('--ion-app-panel-border-color', settings.getAttribute('panel-color'));
 
 /*   titlebar   */
-
-let titlebar_color = titlebar.getAttribute('color');
-let titlebar_name = titlebar.getAttribute('name');
 
 let titlebar_div = document.createElement('div');
 
@@ -42,7 +42,7 @@ for (let i = 0; i < 4; i++) {
             break;
         case 3:
             titlebar_buttons[i].setAttribute('class', 'app-home-button hm');
-            titlebar_buttons[i].setAttribute('onclick', 'ion_toggle_home();');
+            titlebar_buttons[i].setAttribute('onclick', titlebar.getAttribute('onhomeclick'));
             titlebar_buttons[i].setAttribute('data-tool', 'Home (F2)');
             titlebar_buttons[i].innerHTML = '\u2616';
             break;
@@ -51,27 +51,76 @@ for (let i = 0; i < 4; i++) {
 }
 
 let titlebar_text = document.createElement('text');
-titlebar_text.innerHTML = titlebar_name;
+titlebar_text.innerHTML = titlebar.getAttribute('name');
 titlebar_text.setAttribute('class', 'app-home-title');
 titlebar_div.appendChild(titlebar_text);
 
-console.log(titlebar_color);
-
 titlebar_div.setAttribute('class', 'app-titlebar');
-html.style.setProperty('--ion-app-titlebar-color', titlebar_color);
+html.style.setProperty('--ion-app-titlebar-color', titlebar.getAttribute('background-color'));
+html.style.setProperty('--ion-app-home-title-color', titlebar.getAttribute('text-color'));
 
 document.body.insertBefore(titlebar_div, titlebar);
 document.body.removeChild(titlebar);
 
 /*   panels   */
-/*
-panels.forEach((item, index) => {
-    panels[index].setAttribute('class', 'panel');
-    switch (panels[index].getAttribute('position')) {
-        case 'left':
 
-            break;
+function sizePanelOrGroup(o) {
+    let size = o.getAttribute('size');
+
+    if (size) {
+        if (o.parentNode.getAttribute('direction') === 'left-right') {
+            if (o.hasAttribute('relative')) {
+                o.style.flexGrow = Number(size.replace('px', '')) / window.innerWidth;
+            } else {
+                o.style.width = size;
+                o.style.flexGrow = 0;
+            }
+        } else {
+            if (o.hasAttribute('relative')) {
+                o.style.flexGrow = Number(size.replace('px', '')) / window.innerHeight;
+            } else {
+                o.style.height = size;
+                o.style.flexGrow = 0;
+            }
+        }
     }
-});
+}
 
-*/
+class AppGroup extends HTMLElement {
+    constructor() {
+        super();
+    }
+
+    connectedCallback() {
+        switch (this.getAttribute('direction')) {
+            case 'top-down':
+                this.style.flexDirection = 'column';
+                break;
+            case 'left-right': default:
+                this.style.flexDirection = 'row';
+                break;
+        }
+
+        sizePanelOrGroup(this);
+    }
+}
+
+class AppPanel extends HTMLElement {
+    constructor() {
+        super();
+    }
+
+    connectedCallback() {
+        sizePanelOrGroup(this);
+    }
+}
+
+class AppMain extends HTMLElement {
+    constructor() {
+        super();
+    }
+}
+
+customElements.define('app-group', AppGroup);
+customElements.define('app-panel', AppPanel);
+customElements.define('app-main', AppMain);

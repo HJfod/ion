@@ -8,9 +8,53 @@
 </head>
 <body>
 
-    <app-settings app-name="Test name" main-color="#246" shadow-color="rgba(0,0,0,0.2)"></app-settings>
+    <app-settings app-name="Test name 2" main-color="#000" shadow-color="rgba(255,255,255,0.2)" panel-color="#aaa"></app-settings>
 
-    <app-titlebar name="Test name" color="#468"></app-titlebar>
+    <app-titlebar name="Test name" background-color="#000" text-color="#fff" onhomeclick="alert('test')"></app-titlebar>
+
+    <app-main class="app-main">
+        
+        <app-group direction="top-down">
+
+            <app-group direction="left-right">
+
+                <app-group direction="top-down">
+
+                    <app-panel size="100px" relative>
+
+                        <text>textt</text>
+
+                    </app-panel>
+
+                    <app-panel>
+
+                        <text>txt</text>
+
+                    </app-panel>
+
+                </app-group>
+
+                <app-panel size="300px">
+
+                    <text>test text</text>
+
+                </app-panel>
+
+            </app-group>
+
+            <app-group direction="left-right" size="50px">
+
+                <app-panel>
+
+                    <text>text text text</text>
+
+                </app-panel>
+
+            </app-group>
+
+        </app-group>
+
+    </app-main>
 
 </body>
 </html>

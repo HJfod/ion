@@ -1,2 +1,2 @@
-D:\github\ion\ion\obj\Debug\ion.njsprojAssemblyReference.cache
-D:\github\ion\ion\bin\Microsoft.NodejsTools.WebRole.dll
+D:\github\ion\obj\Debug\ion.njsprojAssemblyReference.cache
+D:\github\ion\bin\Microsoft.NodejsTools.WebRole.dll
