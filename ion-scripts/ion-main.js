@@ -1,10 +1,13 @@
-const panels = document.getElementsByTagName('panel');
-const groups = document.getElementsByTagName('group');
-const app = document.getElementsByTagName('app')[0];
-const titlebar = document.getElementsByTagName('app-titlebar')[0];
+﻿const titlebar = document.getElementsByTagName('app-titlebar')[0];
 const settings = document.getElementsByTagName('app-settings')[0];
 const ipc = require('electron').ipcRenderer;
 const html = document.documentElement;
+const $ = require('jquery');
+
+$(document).mousemove((e) => {
+    mouse_x = e.pageX;
+    mouse_y = e.pageY;
+});
 
 /*   settings   */
 
@@ -69,19 +72,11 @@ function sizePanelOrGroup(o) {
 
     if (size) {
         if (o.parentNode.getAttribute('direction') === 'left-right') {
-            if (o.hasAttribute('relative')) {
-                o.style.flexGrow = Number(size.replace('px', '')) / window.innerWidth;
-            } else {
-                o.style.width = size;
-                o.style.flexGrow = 0;
-            }
+            o.style.width = size;
+            o.style.flexGrow = 0;
         } else {
-            if (o.hasAttribute('relative')) {
-                o.style.flexGrow = Number(size.replace('px', '')) / window.innerHeight;
-            } else {
-                o.style.height = size;
-                o.style.flexGrow = 0;
-            }
+            o.style.height = size;
+            o.style.flexGrow = 0;
         }
     }
 }
@@ -121,6 +116,68 @@ class AppMain extends HTMLElement {
     }
 }
 
+class AppDragger extends HTMLElement {
+    constructor() {
+        super();
+    }
+
+    connectedCallback() {
+        this.setAttribute('class', `app-dragger ${this.parentNode.getAttribute('direction')}`);
+        this.setAttribute('data-menu', `Hide panel=>alert('click')`);
+        this.addEventListener('mousedown', drag_on);
+    }
+}
+
+class AppContextmenu extends HTMLElement {
+    constructor() {
+        super();
+    }
+}
+
 customElements.define('app-group', AppGroup);
 customElements.define('app-panel', AppPanel);
 customElements.define('app-main', AppMain);
+customElements.define('app-dragger', AppDragger);
+customElements.define('app-contextmenu', AppContextmenu);
+
+/*   draggers   */
+
+document.addEventListener('mouseup', drag_off);
+
+const draggers = document.getElementsByTagName('app-dragger');
+let dragger_click;
+
+function drag_on(e) {
+    e.preventDefault();
+    dragging(this);
+}
+
+function dragging(e) {
+    let obj = Array.prototype.slice.call(e.parentElement.children );
+    let i = obj.indexOf(e);
+    let o, p, m;
+
+    if (obj[i - 1].hasAttribute('size')) {
+        o = obj[i - 1]; p = 0; m = -1;
+    } else if (obj[i + 1].hasAttribute('size')) {
+        o = obj[i + 1]; p = 1; m = 1;
+    } else {
+        o = obj[i - 1]; p = 0; m = -1; o.style.flexGrow = '0';
+    }
+
+    if (e.getAttribute('class') == 'app-dragger left-right') {
+        o.style.width = (window.innerWidth * p - mouse_x * m) + 'px';
+        document.body.style.cursor = 'ew-resize';
+    } else {
+        o.style.height = (window.innerHeight * p - mouse_y * m - Number(getComputedStyle(html).getPropertyValue('--ion-app-home-titlebar-size').replace('px', ''))) + 'px';
+        document.body.style.cursor = 'ns-resize';
+    }
+
+    dragger_click = setTimeout(() => { if (dragger_click != null) { dragging(e) } }, 1 );
+}
+
+function drag_off(e) {
+    clearTimeout(dragger_click);
+    dragger_click = null;
+    document.body.style.cursor = 'initial';
+}

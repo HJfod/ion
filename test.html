@@ -4,7 +4,9 @@
 <head>
     <meta charset="utf-8" />
     <script defer src="ion-scripts/ion-main.js"></script>
+    <script defer src="ion-scripts/ion-menu-toolbox.js"></script>
     <link rel="stylesheet" href="ion-scripts/ion-main.css"/>
+    <link rel="stylesheet" href="ion-scripts/ion-menu-toolbox.css"/>
 </head>
 <body>
 
@@ -20,11 +22,13 @@
 
                 <app-group direction="top-down">
 
-                    <app-panel size="100px" relative>
+                    <app-panel size="200px">
 
                         <text>textt</text>
 
                     </app-panel>
+
+                    <app-dragger></app-dragger>
 
                     <app-panel>
 
@@ -33,6 +37,8 @@
                     </app-panel>
 
                 </app-group>
+
+                <app-dragger></app-dragger>
 
                 <app-panel size="300px">
 
@@ -55,6 +61,8 @@
         </app-group>
 
     </app-main>
+
+    <app-contextmenu></app-contextmenu>
 
 </body>
 </html>
