@@ -143,11 +143,22 @@ class AppTabs extends HTMLElement {
     }
 }
 
+class AppTab extends HTMLElement {
+    constructor() {
+        super();
+    }
+
+    connectedCallback() {
+        this.setAttribute('onclick', 'tabs_switch_to()');
+    }
+}
+
 customElements.define('app-group', AppGroup);
 customElements.define('app-panel', AppPanel);
 customElements.define('app-main', AppMain);
 customElements.define('app-dragger', AppDragger);
 customElements.define('app-tabs', AppTabs);
+customElements.define('app-tab', AppTab);
 
 /*   draggers   */
 

@@ -35,6 +35,9 @@
     <Content Include="ion-scripts\ion-main.css">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="ion-scripts\ion-tabs.css">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="test.html">
       <SubType>Code</SubType>
     </Content>

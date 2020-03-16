@@ -18,9 +18,13 @@
         
         <app-group direction="top-down">
 
-            <app-group size="30px" min-size="30px">
+            <app-group size="40px" min-size="30px">
 
-                <app-tabs for-user-content></app-tabs>
+                <app-tabs size="30px" destination="tab-test"> <!-- plus-button="name: __prompt; tab-menu: {Option 1=>;Option 2=>{Option=>;O=>}}"-->
+                    <app-tab name="Test name" link="tab0"></app-tab>
+                    <app-tab name="Other tab" link="tab4"></app-tab>
+                    <app-tab name="Tab 3" link="the-thrid"></app-tab>
+                </app-tabs>
 
             </app-group>
 
@@ -30,7 +34,17 @@
 
                     <app-panel size="200px" min-size="50px" data-tip="shit" data-menu="a=>{1=>;yes=>{A;B;C};3;4=>};b=>;c=>;d=>{1;2;3;4;yes=>{yes=>{1;2};2;3}}">
 
-                        <text>textt</text>
+                        <app-pages from="tab-test">
+                            <app-page link="tab0">
+                                <text>This is the first page!</text>
+                            </app-page>
+                            <app-page link="tab4">
+                                <p>This is the second page!</p>
+                            </app-page>
+                            <app-page link="the-thrid">
+                                <text>Third page!</text>
+                            </app-page>
+                        </app-pages>
 
                     </app-panel>
 
