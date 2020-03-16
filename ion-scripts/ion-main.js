@@ -123,14 +123,13 @@ class AppDragger extends HTMLElement {
 
     connectedCallback() {
         this.setAttribute('class', `app-dragger ${this.parentNode.getAttribute('direction')}`);
-        this.setAttribute('data-menu', `Hide panel=>alert('click')`);
+        let r = btoa(Math.round(Math.random()*256));
+        while (document.getElementsByName(r).length) {
+            r = btoa(Math.round(Math.random() * 256));
+        }
+        this.setAttribute('name',r);
+        this.setAttribute('data-menu', `Toggle panel=>toggle_panel("`+ r + `")`);
         this.addEventListener('mousedown', drag_on);
-    }
-}
-
-class AppContextmenu extends HTMLElement {
-    constructor() {
-        super();
     }
 }
 
@@ -138,7 +137,6 @@ customElements.define('app-group', AppGroup);
 customElements.define('app-panel', AppPanel);
 customElements.define('app-main', AppMain);
 customElements.define('app-dragger', AppDragger);
-customElements.define('app-contextmenu', AppContextmenu);
 
 /*   draggers   */
 
@@ -146,41 +144,84 @@ document.addEventListener('mouseup', drag_off);
 
 let dragger_click;
 
+function toggle_panel(which) {
+    which = document.getElementsByName(which)[0];
+    console.log(which);
+    let obj = Array.prototype.slice.call(which.parentElement.children);
+    let i = obj.indexOf(which);
+    let o, refer = which.getAttribute('refer');
+
+    switch (refer) {
+        case 'above':
+            o = obj[i - 1];
+            break;
+        case 'below':
+            o = obj[i + 1];
+            break;
+        default:
+            if (obj[i - 1].hasAttribute('size')) {
+                o = obj[i - 1];
+            } else if (obj[i + 1].hasAttribute('size')) {
+                o = obj[i + 1];
+            } else {
+                o = obj[i - 1];
+            }
+    }
+
+    if (o.style.display !== 'none') {
+        o.style.display = 'none';
+    } else {
+        o.style.display = 'initial';
+    }
+}
+
 function drag_on(e) {
     e.preventDefault();
     let obj = Array.prototype.slice.call(e.target.parentElement.children);
     let i = obj.indexOf(e.target);
-    let o, p, m, off = 0;
+    let o, p, m, off = 0, refer = e.target.getAttribute('refer');
 
-    if (obj[i - 1].hasAttribute('size')) {
-        o = obj[i - 1]; p = 0; m = -1;
-    } else if (obj[i + 1].hasAttribute('size')) {
-        o = obj[i + 1]; p = 1; m = 1;
-    } else {
-        o = obj[i - 1]; p = 0; m = -1; o.style.flexGrow = '0';
+    switch (refer) {
+        case 'above':
+            o = obj[i - 1]; p = 1; m = -1;
+            break;
+        case 'below':
+            o = obj[i + 1]; p = 0; m = 1;
+            break;
+        default:
+            if (obj[i - 1].hasAttribute('size')) {
+                o = obj[i - 1]; p = 1; m = -1;
+            } else if (obj[i + 1].hasAttribute('size')) {
+                o = obj[i + 1]; p = 0; m = 1;
+            } else {
+                o = obj[i - 1]; p = 1; m = -1; o.style.flexGrow = '0';
+            }
     }
 
+    let bodyRect = document.body.getBoundingClientRect(),
+        elemRect = o.getBoundingClientRect();
+    let w, h;
     if (e.target.getAttribute('class') == 'app-dragger left-right') {
-        off = window.innerWidth - Number(o.style.left.replace('px', '')) - Number(o.style.width.replace('px', ''));
+        w = (Number(o.style.width.replace('px', '')));
+        off = mouse_x;
     } else {
-        off = window.innerHeight - Number(o.style.height.replace('px', ''));
+        h = (Number(o.style.height.replace('px', '')));
+        off = mouse_y;
     }
 
-    console.log(off);
-
-    dragging(e.target, o, p, m, off);
+    dragging(e.target, o, p, off, w, h);
 }
 
-function dragging(e, o, p, m, offset) {
+function dragging(e, o, p, offset, w, h) {
     if (e.getAttribute('class') == 'app-dragger left-right') {
-        o.style.width = (window.innerWidth * p - mouse_x * m - offset) + 'px';
+        o.style.width = p ? w - offset + mouse_x + 'px' : w + offset - mouse_x + 'px';
         document.body.style.cursor = 'ew-resize';
     } else {
-        o.style.height = (window.innerHeight * p - mouse_y * m - offset) + 'px';
+        o.style.height = p ? h - offset + mouse_y + 'px' : h + offset - mouse_y + 'px';
         document.body.style.cursor = 'ns-resize';
     }
 
-    dragger_click = setTimeout(() => { if (dragger_click != null) { dragging(e, o, p, m, offset) } }, 1 );
+    dragger_click = setTimeout(() => { if (dragger_click != null) { dragging(e, o, p, offset, w, h) } }, 1 );
 }
 
 function drag_off(e) {

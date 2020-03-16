@@ -15,7 +15,7 @@
 
     --ion-app-panel-border-color:           rgb(255,255,255);
     --ion-app-panel-border-size:            1px;
-    --ion-app-dragger-size:                 20px;
+    --ion-app-dragger-size:                 14px;
 
     --ion-app-menu-option-height:           22px;
     --ion-app-menu-background-color:        #000;
@@ -148,7 +148,7 @@ app-panel {
 app-dragger {
     background-color: rgb(255,0,0);
     display: unset;
-    opacity: 0.3;
+    opacity: 0;
     z-index: 20;
     margin: calc( 0px - calc(var(--ion-app-dragger-size) / 2 ) );
 }

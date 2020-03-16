@@ -81,7 +81,7 @@ function open_contextmenu(menu, x = null, y = null, level = 0) {
             if (action.startsWith('{')) {
                 add[add.length] = { a: action, b: button, i: i };
             } else {
-                button.setAttribute('onclick', action);
+                button.setAttribute('onmouseup', 'close_menu(true);' + action);
             }
         }
 
@@ -111,8 +111,21 @@ function open_contextmenu(menu, x = null, y = null, level = 0) {
     add.forEach((item, index) => {
         let i = Number((getComputedStyle(html).getPropertyValue('--ion-app-menu-option-height')).replace('px',''));
 
-        item.b.setAttribute('onclick', `open_contextmenu("${item.a}",${mex + mw},${mey + item.i * i},${level + 1})`);
+        item.b.setAttribute('onmouseup', `open_contextmenu("${item.a}",${mex + mw},${mey + item.i * i},${level + 1})`);
     });
+}
+
+function close_menu(click = false) {
+    let hover = false;
+    let e = Array.prototype.slice.call(document.getElementsByClassName('app-contextmenu'));
+    e.forEach((item, index) => {
+        if ($(item).is(':hover')) {
+            hover = true;
+        }
+    });
+    if (!hover || click) {
+        $('.app-contextmenu').remove();
+    }
 }
 
 let tip_timeout;
@@ -163,14 +176,5 @@ $(document).mousemove(() => {
 });
 
 $(document).mouseup(() => {
-    let hover = false;
-    let e = Array.prototype.slice.call(document.getElementsByClassName('app-contextmenu'));
-    e.forEach((item, index) => {
-        if ($(item).is(':hover')) {
-            hover = true;
-        }
-    });
-    if (!hover) {
-        $('.app-contextmenu').remove();
-    }
+    close_menu();
 });
