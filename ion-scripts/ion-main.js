@@ -144,18 +144,13 @@ customElements.define('app-contextmenu', AppContextmenu);
 
 document.addEventListener('mouseup', drag_off);
 
-const draggers = document.getElementsByTagName('app-dragger');
 let dragger_click;
 
 function drag_on(e) {
     e.preventDefault();
-    dragging(this);
-}
-
-function dragging(e) {
-    let obj = Array.prototype.slice.call(e.parentElement.children );
-    let i = obj.indexOf(e);
-    let o, p, m;
+    let obj = Array.prototype.slice.call(e.target.parentElement.children);
+    let i = obj.indexOf(e.target);
+    let o, p, m, off = 0;
 
     if (obj[i - 1].hasAttribute('size')) {
         o = obj[i - 1]; p = 0; m = -1;
@@ -165,15 +160,27 @@ function dragging(e) {
         o = obj[i - 1]; p = 0; m = -1; o.style.flexGrow = '0';
     }
 
+    if (e.target.getAttribute('class') == 'app-dragger left-right') {
+        off = window.innerWidth - Number(o.style.left.replace('px', '')) - Number(o.style.width.replace('px', ''));
+    } else {
+        off = window.innerHeight - Number(o.style.height.replace('px', ''));
+    }
+
+    console.log(off);
+
+    dragging(e.target, o, p, m, off);
+}
+
+function dragging(e, o, p, m, offset) {
     if (e.getAttribute('class') == 'app-dragger left-right') {
-        o.style.width = (window.innerWidth * p - mouse_x * m) + 'px';
+        o.style.width = (window.innerWidth * p - mouse_x * m - offset) + 'px';
         document.body.style.cursor = 'ew-resize';
     } else {
-        o.style.height = (window.innerHeight * p - mouse_y * m - Number(getComputedStyle(html).getPropertyValue('--ion-app-home-titlebar-size').replace('px', ''))) + 'px';
+        o.style.height = (window.innerHeight * p - mouse_y * m - offset) + 'px';
         document.body.style.cursor = 'ns-resize';
     }
 
-    dragger_click = setTimeout(() => { if (dragger_click != null) { dragging(e) } }, 1 );
+    dragger_click = setTimeout(() => { if (dragger_click != null) { dragging(e, o, p, m, offset) } }, 1 );
 }
 
 function drag_off(e) {

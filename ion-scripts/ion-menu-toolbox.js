@@ -116,6 +116,7 @@ function open_contextmenu(menu, x = null, y = null, level = 0) {
 }
 
 let tip_timeout;
+let current_tip = null;
 
 $('[data-tip]').mouseover((e) => {
     let ta = $(e.target);
@@ -130,9 +131,9 @@ $('[data-tip]').mouseover((e) => {
         ta = ta.parent();
     }
 
-    console.log(ta.attr('data-tip'))
-
     current_tip = ta.attr('data-tip');
+}).mouseleave((e) => {
+    current_tip = null;
 });
 
 $(document).mousemove(() => {
@@ -142,20 +143,22 @@ $(document).mousemove(() => {
     });
     clearTimeout(tip_timeout);
     tip_timeout = setTimeout(() => {
-        let tip = document.createElement('app-tooltip');
-        $(tip).text(current_tip);
-        let mex = mouse_x, mey = mouse_y, mw = Number($(tip).css('width').replace('px', '')), mh = Number($(tip).css('height').replace('px', ''));
+        if (current_tip !== null) {
+            let tip = document.createElement('app-tooltip');
+            $(tip).text(current_tip);
+            let mex = mouse_x, mey = mouse_y, mw = Number($(tip).css('width').replace('px', '')), mh = Number($(tip).css('height').replace('px', ''));
 
-        if (mex > window.innerWidth - mw) {
-            mex = mex - mw;
+            if (mex > window.innerWidth - mw) {
+                mex = mex - mw;
+            }
+            if (mey > window.innerHeight - mh) {
+                mey = mey - mh;
+            }
+
+            $(tip).css('top', mey + 'px').css('left', mex + 'px');
+
+            document.body.appendChild(tip);
         }
-        if (mey > window.innerHeight - mh) {
-            mey = mey - mh;
-        }
-
-        $(tip).css('top', mey + 'px').css('left', mex + 'px');
-
-        document.body.appendChild(tip);
     }, app_tip_timeout);
 });
 
