@@ -133,10 +133,21 @@ class AppDragger extends HTMLElement {
     }
 }
 
+class AppTabs extends HTMLElement {
+    constructor() {
+        super();
+    }
+
+    connectedCallback() {
+        
+    }
+}
+
 customElements.define('app-group', AppGroup);
 customElements.define('app-panel', AppPanel);
 customElements.define('app-main', AppMain);
 customElements.define('app-dragger', AppDragger);
+customElements.define('app-tabs', AppTabs);
 
 /*   draggers   */
 
