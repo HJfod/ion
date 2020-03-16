@@ -18,7 +18,7 @@
         
         <app-group direction="top-down">
 
-            <app-group size="30px">
+            <app-group size="30px" min-size="30px">
 
                 <app-tabs id=""></app-tabs>
 
@@ -28,7 +28,7 @@
 
                 <app-group direction="top-down">
 
-                    <app-panel size="200px" data-tip="shit" data-menu="a=>{1=>;yes=>{A;B;C};3;4=>};b=>;c=>;d=>{1;2;3;4;yes=>{yes=>{1;2};2;3}}">
+                    <app-panel size="200px" min-size="50px" data-tip="shit" data-menu="a=>{1=>;yes=>{A;B;C};3;4=>};b=>;c=>;d=>{1;2;3;4;yes=>{yes=>{1;2};2;3}}">
 
                         <text>textt</text>
 
@@ -46,7 +46,7 @@
 
                 <app-dragger></app-dragger>
 
-                <app-panel size="300px">
+                <app-panel size="300px" min-size="100px">
 
                     <text>test text</text>
 
@@ -54,15 +54,35 @@
 
                 <app-dragger refer="below"></app-dragger>
 
-                <app-panel size="200px">
+                <app-group size="200px" direction="top-down">
 
-                    <text>yeah</text>
+                    <app-panel size="200px">
 
-                </app-panel>
+                        <text>yeah</text>
+
+                    </app-panel>
+
+                    <app-dragger></app-dragger>
+
+                    <app-panel size="150px">
+
+                        <text>yeahhhh</text>
+
+                    </app-panel>
+
+                    <app-dragger></app-dragger>
+
+                    <app-panel>
+
+                        <text>yeahhhh</text>
+
+                    </app-panel>
+
+                </app-group>
 
             </app-group>
 
-            <app-group direction="left-right" size="50px">
+            <app-group direction="left-right" size="50px" min-size="50px">
 
                 <app-panel data-menu="This=>;Menu=>{Yeah=>;Yeah=>;Yeah=>;Yeah=>;Yeah=>};Is=>;Long=>">
 

@@ -171,7 +171,7 @@ function toggle_panel(which) {
     if (o.style.display !== 'none') {
         o.style.display = 'none';
     } else {
-        o.style.display = 'initial';
+        o.style.display = 'flex';
     }
 }
 
@@ -198,8 +198,6 @@ function drag_on(e) {
             }
     }
 
-    let bodyRect = document.body.getBoundingClientRect(),
-        elemRect = o.getBoundingClientRect();
     let w, h;
     if (e.target.getAttribute('class') == 'app-dragger left-right') {
         w = (Number(o.style.width.replace('px', '')));
@@ -216,9 +214,19 @@ function dragging(e, o, p, offset, w, h) {
     if (e.getAttribute('class') == 'app-dragger left-right') {
         o.style.width = p ? w - offset + mouse_x + 'px' : w + offset - mouse_x + 'px';
         document.body.style.cursor = 'ew-resize';
+        if (o.hasAttribute('min-size')) {
+            if (Number(o.style.width.replace('px', '')) < Number(o.getAttribute('min-size').replace('px', ''))) {
+                o.style.width = o.getAttribute('min-size');
+            }
+        }
     } else {
         o.style.height = p ? h - offset + mouse_y + 'px' : h + offset - mouse_y + 'px';
         document.body.style.cursor = 'ns-resize';
+        if (o.hasAttribute('min-size')) {
+            if (Number(o.style.height.replace('px', '')) < Number(o.getAttribute('min-size').replace('px', ''))) {
+                o.style.height = o.getAttribute('min-size');
+            }
+        }
     }
 
     dragger_click = setTimeout(() => { if (dragger_click != null) { dragging(e, o, p, offset, w, h) } }, 1 );

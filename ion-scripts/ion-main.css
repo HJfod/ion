@@ -147,7 +147,7 @@ app-panel {
 
 app-dragger {
     background-color: rgb(255,0,0);
-    display: unset;
+    display: inherit;
     opacity: 0;
     z-index: 20;
     margin: calc( 0px - calc(var(--ion-app-dragger-size) / 2 ) );
