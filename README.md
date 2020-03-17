@@ -7,13 +7,13 @@ Electron addition that features all the styles and js stuff i use
 ```
 Tag that won't be displayed. Overall settings for the app.
 
-	+ **app-name** Name for the app.
-	+ **main-color** Main base color of the app. Sets the background color as well as others.
-	+ **extra-color** Subsidiary secondary color of the app. Sets the scrollbar hover color as well as others.
-	+ **shadow-color** Color for the shadow that panels, dropdowns and such have in their edges.
-	+ **dark-color** A color brighter than the main color.
-	+ **darker-color** A color brighter than the main color yet darker than `dark-color.`
-	+ **font** Main font for the app.
++ **app-name** Name for the app.
++ **main-color** Main base color of the app. Sets the background color as well as others.
++ **extra-color** Subsidiary secondary color of the app. Sets the scrollbar hover color as well as others.
++ **shadow-color** Color for the shadow that panels, dropdowns and such have in their edges.
++ **dark-color** A color brighter than the main color.
++ **darker-color** A color brighter than the main color yet darker than `dark-color.`
++ **font** Main font for the app.
 
 ```html
 <app-titlebar name="NAME-HERE" background-color="#COLOR" text-color="#COLOR" onhomeclick="FUNCTION()"></app-titlebar>
@@ -21,10 +21,10 @@ Tag that won't be displayed. Overall settings for the app.
 
 The titlebar for the app. Will be replaced with a div containing close, minimize, fullscreen and home buttons on startup.
 
-	+ **name** The name that should be written in the titlebar.
-	+ **background-color** Color of the titlebar.
-	+ **text-color** Color of the text and buttons in the titlebar.
-	+ **onhomeclick** Function that should be performed when the home button is clicked.
++ **name** The name that should be written in the titlebar.
++ **background-color** Color of the titlebar.
++ **text-color** Color of the text and buttons in the titlebar.
++ **onhomeclick** Function that should be performed when the home button is clicked.
 
 ```html
 <app-main></app-main>
@@ -38,9 +38,9 @@ Main app div. This is where all your panels go.
 
 Groups are containers for panels.
 
-	+ **direction** Whether panels inside the group should be placed from left to right or from top to bottom. Acceptable values: **top-down** or **left-right**
-	+ **size** Size of the group to it's direction. Type px after the value, e.g. `200px` > optional
-	+ **min-size** Minimum size of the group, cannot be resized below this value. Type px after the value. > optional
++ **direction** Whether panels inside the group should be placed from left to right or from top to bottom. Acceptable values: **top-down** or **left-right**
++ **size** Size of the group to it's direction. Type px after the value, e.g. `200px` > optional
++ **min-size** Minimum size of the group, cannot be resized below this value. Type px after the value. > optional
 
 ```html
 <app-panel size="SIZEpx" min-size="SIZEpx"></app-panel>
@@ -48,8 +48,8 @@ Groups are containers for panels.
 
 Panels are containers for your elements. Basically the divs where content goes!
 
-	+ **size** Size of the group to it's direction. Type px after the value, e.g. `200px` > optional
-	+ **min-size** Minimum size of the group, cannot be resized below this value. Type px after the value. > optional
++ **size** Size of the group to it's direction. Type px after the value, e.g. `200px` > optional
++ **min-size** Minimum size of the group, cannot be resized below this value. Type px after the value. > optional
 
 ```html
 <app-dragger refer="above || below"></app-dragger>
@@ -57,18 +57,18 @@ Panels are containers for your elements. Basically the divs where content goes!
 
 Dragger is an element that lets you resize a panel / group that it's next to. Will default to affect the one besides it that has the `size` tag, or the left/above one.
 
-	+ **refer** Force whether the dragger should refer to the left/above panel or right/below panel. Acceptable values: **above** or **below** > optional
++ **refer** Force whether the dragger should refer to the left/above panel or right/below panel. Acceptable values: **above** or **below** > optional
 
 ```html
 <app-tabs tab-height="SIZEpx" destination="LINK-NAME" text-color="#COLOR" selected-text-color="#COLOR" selected-color="#COLOR"></app-tabs>
 ```
 
 Tabs container. Fills the group / panel they're inside. 
-	+ **tab-height** Height of the tabs. Type px after the value.
-	+ **destination** What `app-pages` element these tabs should refer to.
-	+ **text-color** Color of the text inside an unselected tab.
-	+ **selected-text-color** Color of the text inside a selected tab.
-	+ **selected-color** Color of the background of a selected tab.
++ **tab-height** Height of the tabs. Type px after the value.
++ **destination** What `app-pages` element these tabs should refer to.
++ **text-color** Color of the text inside an unselected tab.
++ **selected-text-color** Color of the text inside a selected tab.
++ **selected-color** Color of the background of a selected tab.
 
 	
 ```html
@@ -76,23 +76,23 @@ Tabs container. Fills the group / panel they're inside.
 ```
 
 A tab. Will switch a `app-pages` element to the destinated page. Must be included within a `app-tabs` element.
-	+ **name** The tab text.
-	+ **link** What page in the destination defined in the `app-tabs` container this tab should refer to.
-	+ **default** Toggle whether or not this tab should be the default option when app is loaded.
++ **name** The tab text.
++ **link** What page in the destination defined in the `app-tabs` container this tab should refer to.
++ **default** Toggle whether or not this tab should be the default option when app is loaded.
 
 ```html
 <app-pages from="LINK-NAME"></app-pages>
 ```
 
 Container for pages toggled by tabs in an `app-tabs` element.
-	+ **from** Which `app-tabs` element this should be controlled by.
++ **from** Which `app-tabs` element this should be controlled by.
 
 ```html
 <app-page link="LINK-NAME"></app-page>
 ```
 
 A page that is toggled by it's linked tab. Must be contained in an `app-pages` element.
-	+ **link** Which tab should toggle this page.
++ **link** Which tab should toggle this page.
 
 ### Other features
 ```html
