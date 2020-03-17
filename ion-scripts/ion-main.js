@@ -15,11 +15,16 @@ document.title = settings.getAttribute('app-name');
 html.style.setProperty('--ion-app-main-color', settings.getAttribute('main-color'));
 html.style.setProperty('--ion-app-shadow-color', settings.getAttribute('shadow-color'));
 html.style.setProperty('--ion-app-panel-border-color', settings.getAttribute('panel-color'));
+html.style.setProperty('--ion-app-home-font', settings.getAttribute('font'));
+html.style.setProperty('--ion-app-menu-option-font', settings.getAttribute('font'));
 
 /*   titlebar   */
 
 let titlebar_div = document.createElement('div');
 
+function arr(list) {
+    return Array.prototype.slice.call(list);
+}
 
 let titlebar_buttons = [];
 for (let i = 0; i < 4; i++) {
@@ -133,32 +138,10 @@ class AppDragger extends HTMLElement {
     }
 }
 
-class AppTabs extends HTMLElement {
-    constructor() {
-        super();
-    }
-
-    connectedCallback() {
-        
-    }
-}
-
-class AppTab extends HTMLElement {
-    constructor() {
-        super();
-    }
-
-    connectedCallback() {
-        this.setAttribute('onclick', 'tabs_switch_to()');
-    }
-}
-
 customElements.define('app-group', AppGroup);
 customElements.define('app-panel', AppPanel);
 customElements.define('app-main', AppMain);
 customElements.define('app-dragger', AppDragger);
-customElements.define('app-tabs', AppTabs);
-customElements.define('app-tab', AppTab);
 
 /*   draggers   */
 
@@ -169,7 +152,7 @@ let dragger_click;
 function toggle_panel(which) {
     which = document.getElementsByName(which)[0];
     console.log(which);
-    let obj = Array.prototype.slice.call(which.parentElement.children);
+    let obj = arr(which.parentElement.children);
     let i = obj.indexOf(which);
     let o, refer = which.getAttribute('refer');
 
@@ -199,7 +182,7 @@ function toggle_panel(which) {
 
 function drag_on(e) {
     e.preventDefault();
-    let obj = Array.prototype.slice.call(e.target.parentElement.children);
+    let obj = arr(e.target.parentElement.children);
     let i = obj.indexOf(e.target);
     let o, p, m, off = 0, refer = e.target.getAttribute('refer');
 

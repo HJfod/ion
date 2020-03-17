@@ -1,0 +1,29 @@
+/*   tabs   */
+
+app-tabs {
+    width: 100%;
+    height: 100%;
+    overflow-y: hidden;
+    background-color: rgba(0,0,0,0.0);
+    white-space: nowrap;
+    user-select: none;
+}
+
+app-tab {
+    height: 30px;
+    color: #fff;
+    background-color: rgba(0,0,0,0);
+    user-select: none;
+    font-family: var(--ion-app-menu-option-font);
+    padding: var(--ion-app-tabs-padding);
+    transition-duration: var(--ion-app-transition-duration);
+}
+
+app-tab:hover {
+    background-color: var(--ion-app-home-hover-color);
+    cursor: pointer;
+}
+
+app-page {
+    display: none;
+}

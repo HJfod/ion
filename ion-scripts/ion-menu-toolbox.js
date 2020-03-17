@@ -19,7 +19,7 @@ $('[data-menu]').contextmenu((e) => {
 });
 
 function open_contextmenu(menu, x = null, y = null, level = 0) {
-    let e = Array.prototype.slice.call(document.getElementsByClassName('app-contextmenu'));
+    let e = arr(document.getElementsByClassName('app-contextmenu'));
     e.forEach((item, index) => {
         if (Number(item.getAttribute('level')) >= Number(level)) {
             $(item).remove();
@@ -117,7 +117,7 @@ function open_contextmenu(menu, x = null, y = null, level = 0) {
 
 function close_menu(click = false) {
     let hover = false;
-    let e = Array.prototype.slice.call(document.getElementsByClassName('app-contextmenu'));
+    let e = arr(document.getElementsByClassName('app-contextmenu'));
     e.forEach((item, index) => {
         if ($(item).is(':hover')) {
             hover = true;
@@ -150,7 +150,7 @@ $('[data-tip]').mouseover((e) => {
 });
 
 $(document).mousemove(() => {
-    let e = Array.prototype.slice.call(document.getElementsByTagName('app-tooltip'));
+    let e = arr(document.getElementsByTagName('app-tooltip'));
     e.forEach((item, index) => {
         $(item).remove();
     });

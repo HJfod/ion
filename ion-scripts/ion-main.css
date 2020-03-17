@@ -24,6 +24,8 @@
     --ion-app-menu-option-font:             Segoe UI Light;
     --ion-app-menu-option-pad:              5px;
     --ion-app-menu-option-text-size:        16px;
+
+    --ion-app-tabs-padding:                 5px;
 }
 
 body {
