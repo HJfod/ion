@@ -10,6 +10,8 @@
     --ion-app-titlebar-color:               rgb(0,0,0);
     --ion-app-titlebar-text-color:          rgb(255,255,255);
     --ion-app-main-color:                   rgb(0,0,0);
+    --ion-app-extra-color:                  rgb(0,0,0);
+    --ion-app-dark-color:                  rgb(0,0,0);
     --ion-app-shadow-size:                  5px;
     --ion-app-shadow-color:                 rgb(0,0,0);
 
@@ -26,6 +28,27 @@
     --ion-app-menu-option-text-size:        16px;
 
     --ion-app-tabs-padding:                 5px;
+
+    --ion-app-scrollbar-size:               10px;
+}
+
+::-webkit-scrollbar {
+    width: var(--ion-app-scrollbar-size);
+    height: var(--ion-app-scrollbar-size);
+}
+
+::-webkit-scrollbar-track {
+    background: var(--ion-app-panel-border-color);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--ion-app-dark-color);
+    transition-duration: var(--gui-transition-time);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--ion-app-extra-color);
+    cursor: pointer;
 }
 
 body {

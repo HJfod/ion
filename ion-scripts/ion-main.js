@@ -13,8 +13,10 @@ $(document).mousemove((e) => {
 
 document.title = settings.getAttribute('app-name');
 html.style.setProperty('--ion-app-main-color', settings.getAttribute('main-color'));
+html.style.setProperty('--ion-app-extra-color', settings.getAttribute('extra-color'));
 html.style.setProperty('--ion-app-shadow-color', settings.getAttribute('shadow-color'));
-html.style.setProperty('--ion-app-panel-border-color', settings.getAttribute('panel-color'));
+html.style.setProperty('--ion-app-panel-border-color', settings.getAttribute('darker-color'));
+html.style.setProperty('--ion-app-dark-color', settings.getAttribute('dark-color'));
 html.style.setProperty('--ion-app-home-font', settings.getAttribute('font'));
 html.style.setProperty('--ion-app-menu-option-font', settings.getAttribute('font'));
 

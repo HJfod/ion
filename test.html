@@ -12,7 +12,7 @@
 </head>
 <body>
 
-    <app-settings app-name="Test name 2" main-color="#000" shadow-color="rgba(255,255,255,0.2)" panel-color="#222" font="Segoe UI Light"></app-settings>
+    <app-settings app-name="Test name 2" main-color="#000" extra-color="#ca5" shadow-color="rgba(255,255,255,0.2)" dark-color="#555" darker-color="#222" font="Segoe UI Light"></app-settings>
 
     <app-titlebar name="Test name" background-color="#000" text-color="#fff" onhomeclick="alert('test')"></app-titlebar>
 
@@ -20,15 +20,30 @@
         
         <app-group direction="top-down">
 
-            <app-group size="40px" min-size="30px">
+            <app-group size="40px" min-size="30px" direction="left-right">
 
-                <app-tabs tab-height="30px" destination="tab-test" text-color="#aaa" selected-text-color="#fff" selected-color="#000"> <!-- plus-button="name: __prompt; tab-menu: {Option 1=>;Option 2=>{Option=>;O=>}}"-->
-                    <app-tab name="Test name" link="tab0" default></app-tab>
-                    <app-tab name="Other tab" link="tab4"></app-tab>
-                    <app-tab name="Tab 3" link="the-thrid"></app-tab>
-                </app-tabs>
+                <app-panel size="300px" min-size="30px" direction="left-right">
+
+                    <app-tabs tab-height="25px" destination="tab-test" text-color="#aaa" selected-text-color="#fff" selected-color="#000">
+                        <!-- plus-button="name: __prompt; tab-menu: {Option 1=>;Option 2=>{Option=>;O=>}}"-->
+                        <app-tab name="Test name" link="tab0" default></app-tab>
+                        <app-tab name="Other tab" link="tab4"></app-tab>
+                        <app-tab name="Tab 3" link="the-thrid"></app-tab>
+                        <app-tab name="3423" link=""></app-tab>
+                        <app-tab name="Sexxxxxxxxxxxxx" link=""></app-tab>
+                    </app-tabs>
+
+                </app-panel>
+
+                <app-dragger></app-dragger>
+
+                <app-panel>
+
+                </app-panel>
 
             </app-group>
+
+            <app-dragger></app-dragger>
 
             <app-group direction="left-right">
 
@@ -44,7 +59,7 @@
                                 <p>This is the second page!</p>
                             </app-page>
                             <app-page link="the-thrid">
-                                <p>Third page!</p>
+                                <p>Third page!</p><br /><br />
                                 <input type="checkbox" name="yeah"/>
                             </app-page>
                         </app-pages>

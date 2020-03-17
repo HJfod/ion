@@ -32,4 +32,5 @@ app-tooltip {
     padding: var(--ion-app-menu-option-pad);
     box-shadow: 0px 0px var(--ion-app-shadow-size) var(--ion-app-shadow-color);
     font-family: var(--ion-app-menu-option-font);
+    user-select: none;
 }

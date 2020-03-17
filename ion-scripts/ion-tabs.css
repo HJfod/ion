@@ -7,6 +7,7 @@ app-tabs {
     background-color: rgba(0,0,0,0.0);
     white-space: nowrap;
     user-select: none;
+    display: flex;
 }
 
 app-tab {
@@ -15,11 +16,21 @@ app-tab {
     background-color: rgba(0,0,0,0);
     user-select: none;
     font-family: var(--ion-app-menu-option-font);
-    padding: var(--ion-app-tabs-padding);
+    font-size: 20px;
+    padding-left: var(--ion-app-tabs-padding);
+    padding-right: var(--ion-app-tabs-padding);
     transition-duration: var(--ion-app-transition-duration);
+    align-self: flex-end;
+    border: calc( var(--ion-app-panel-border-size) * 2) solid rgba(0,0,0,0);
+    border-bottom: 0px solid rgba(0,0,0,0);
 }
 
-app-tab:hover {
+.app-tab-selected {
+    border-color: var(--ion-app-panel-border-color);
+    color: #fff;
+}
+
+app-tab:not(.app-tab-selected):hover {
     background-color: var(--ion-app-home-hover-color);
     cursor: pointer;
 }
