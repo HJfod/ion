@@ -38,9 +38,9 @@ Main app div. This is where all your panels go.
 
 Groups are containers for panels.
 
-+ **direction** Whether panels inside the group should be placed from left to right or from top to bottom. Acceptable values: **top-down** or **left-right**
-+ **size** Size of the group to it's direction. Type px after the value, e.g. `200px` > optional
-+ **min-size** Minimum size of the group, cannot be resized below this value. Type px after the value. > optional
++ **direction** Whether panels inside the group should be placed from left to right or from top to bottom. Acceptable values: `top-down` or `left-right`
++ **size** Size of the group to it's direction. Type px after the value, e.g. `200px` `optional`
++ **min-size** Minimum size of the group, cannot be resized below this value. Type px after the value. `optional`
 
 ```html
 <app-panel size="SIZEpx" min-size="SIZEpx"></app-panel>
@@ -48,8 +48,8 @@ Groups are containers for panels.
 
 Panels are containers for your elements. Basically the divs where content goes!
 
-+ **size** Size of the group to it's direction. Type px after the value, e.g. `200px` > optional
-+ **min-size** Minimum size of the group, cannot be resized below this value. Type px after the value. > optional
++ **size** Size of the group to it's direction. Type px after the value, e.g. `200px` `optional`
++ **min-size** Minimum size of the group, cannot be resized below this value. Type px after the value. `optional`
 
 ```html
 <app-dragger refer="above || below"></app-dragger>
@@ -57,7 +57,7 @@ Panels are containers for your elements. Basically the divs where content goes!
 
 Dragger is an element that lets you resize a panel / group that it's next to. Will default to affect the one besides it that has the `size` tag, or the left/above one.
 
-+ **refer** Force whether the dragger should refer to the left/above panel or right/below panel. Acceptable values: **above** or **below** > optional
++ **refer** Force whether the dragger should refer to the left/above panel or right/below panel. Acceptable values: **above** or **below** `optional`
 
 ```html
 <app-tabs tab-height="SIZEpx" destination="LINK-NAME" text-color="#COLOR" selected-text-color="#COLOR" selected-color="#COLOR"></app-tabs>
