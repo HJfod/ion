@@ -61,7 +61,7 @@ Panels are containers for your elements. Basically the divs where content goes!
 
 Dragger is an element that lets you resize a panel / group that it's next to. Will default to affect the one besides it that has the `size` tag, or the left/above one.
 
-+ **refer** Force whether the dragger should refer to the left/above panel or right/below panel. Acceptable values: **above** or **below** `optional`
++ **refer** Force whether the dragger should refer to the left/above panel or right/below panel. Acceptable values: `above` or `below` `optional`
 
 ```html
 <app-tabs tab-height="SIZEpx" destination="LINK-NAME" text-color="#COLOR" selected-text-color="#COLOR" selected-color="#COLOR"></app-tabs>
