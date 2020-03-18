@@ -98,7 +98,7 @@ Container for pages toggled by tabs in an `app-tabs` element.
 A page that is toggled by it's linked tab. Must be contained in an `app-pages` element.
 + **link** Which tab should toggle this page.
 
-### Other features
+## Other features
 ```html
 <element data-menu="CONTEXT-MENU"></element>
 ```
@@ -110,7 +110,7 @@ Can be added to any element. When element is right-clicked, a contextmenu appear
 Can be added to any element. When an element is hovered over, a tooltip appears containing the text passed in as an argument.
 
 
-##### CONTEXT-MENU type argument:
+### CONTEXT-MENU type argument:
 
 Options are separated with a semicolon `;`.
 
