@@ -3,7 +3,7 @@
     --ion-app-home-button-size:             45px;
     --ion-app-home-title-size:              15px;
     --ion-app-transition-duration:          0.1s;
-    --ion-app-home-font:                    Segoe UI Light;
+    --ion-app-font:                         Segoe UI Light;
     --ion-app-home-title-color:             #fff;
     --ion-app-home-hover-color:             rgba(255,255,255,0.2);
     --ion-app-home-margin:                  10px;
@@ -11,11 +11,12 @@
     --ion-app-titlebar-text-color:          rgb(255,255,255);
     --ion-app-main-color:                   rgb(0,0,0);
     --ion-app-extra-color:                  rgb(0,0,0);
-    --ion-app-dark-color:                  rgb(0,0,0);
+    --ion-app-dark-color:                   rgb(0,0,0);
+    --ion-app-text-color:                   rgb(0,0,0);
     --ion-app-shadow-size:                  5px;
     --ion-app-shadow-color:                 rgb(0,0,0);
 
-    --ion-app-panel-border-color:           rgb(255,255,255);
+    --ion-app-panel-border-color:           rgb(255,255,255);   /* darker-color */
     --ion-app-panel-border-size:            1px;
     --ion-app-dragger-size:                 14px;
 
@@ -23,7 +24,6 @@
     --ion-app-menu-background-color:        #000;
     --ion-app-menu-option-text-color:       #fff;
     --ion-app-menu-option-hover-color:      rgba(255,255,255,0.2);
-    --ion-app-menu-option-font:             Segoe UI Light;
     --ion-app-menu-option-pad:              5px;
     --ion-app-menu-option-text-size:        16px;
 
@@ -56,6 +56,8 @@ body {
     padding: 0;
     background-color: var(--ion-app-main-color);
     overflow: hidden;
+    font-family: var(--ion-app-font);
+    color: var(--ion-app-text-color);
 }
 
 button:focus {
@@ -64,7 +66,7 @@ button:focus {
 
 /*          titlebar           */
 
-.app-titlebar {
+app-titlebar {
     background-color: var(--ion-app-titlebar-color);
     background-image: var(--ion-app-titlebar-color);
     width: 100%;
@@ -72,6 +74,7 @@ button:focus {
     top: 0px;
     left: 0px;
     z-index: 20;
+    display: flex;
     -webkit-user-select: none;
     -webkit-app-region: drag;
     box-shadow: 0px 0px var(--ion-app-shadow-size) var(--ion-app-shadow-color);
@@ -79,35 +82,42 @@ button:focus {
 
 .app-home-button {
     background-color: rgba(0,0,0,0);
-    position: absolute;
     color: var(--ion-app-home-title-color);
-    top: 0px;
+    margin-top: 0px;
+    text-align: center;
     font-size: var(--ion-app-home-title-size);
-    font-family: var(--ion-app-home-font);
+    font-family: var(--ion-app-font);
     width: var(--ion-app-home-button-size);
     height: var(--ion-app-home-titlebar-size);
     border: none;
     -webkit-app-region: no-drag;
     transition-duration: var(--ion-app-transition-duration);
+    margin-left: 0px;
+    margin-right: auto;
+    justify-content: flex-start;
 }
 
 .app-home-button.close {
-    left: calc( 100% - var(--ion-app-home-button-size) );
+    margin-right: 0px;
 }
 
 .app-home-button.fs {
-    left: calc( 100% - ( var(--ion-app-home-button-size) * 2 ) );
+    margin-right: 0px;
 }
 
 .app-home-button.mz {
-    left: calc( 100% - ( var(--ion-app-home-button-size) * 3 ) );
+    margin-right: 0px;
 }
 
 .app-home-button.hm {
-    left: 0px;
+    margin-left: 0px;
 }
 
-.app-home-button:hover {
+.app-home-disabled {
+    color: var(--ion-app-dark-color);
+}
+
+.app-home-button:not(.app-home-disabled):hover {
     background-color: var(--ion-app-home-hover-color);
 }
 
@@ -120,12 +130,16 @@ button:focus {
 }
 
 .app-home-title {
-    top: calc( var(--ion-app-home-margin) / 2 );
-    left: calc( var(--ion-app-home-margin) + var(--ion-app-home-button-size) );
+    margin-top: calc( var(--ion-app-home-margin) / 2 );
+    margin-left: var(--ion-app-home-margin);
+    width: 100%;
+    margin-right: auto;
+    align-self: flex-start;
     font-size: var(--ion-app-home-title-size);
-    font-family: var(--ion-app-home-font);
+    font-family: var(--ion-app-font);
     color: var(--ion-app-home-title-color);
-    position: absolute;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 /*          panels           */
@@ -161,7 +175,6 @@ app-group {
 
 app-panel {
     display: flex;
-    color: #fff;
     align-items: stretch;
     flex-grow: 1;
     flex-shrink: 0;

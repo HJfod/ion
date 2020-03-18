@@ -11,7 +11,7 @@
     background-color: rgba(0,0,0,0);
     border: none;
     color: var(--ion-app-menu-option-text-color);
-    font-family: var(--ion-app-menu-option-font);
+    font-family: var(--ion-app-font);
     font-size: var(--ion-app-menu-option-text-size);
     display: flex;
     height: var(--ion-app-menu-option-height);
@@ -31,6 +31,6 @@ app-tooltip {
     position: absolute;
     padding: var(--ion-app-menu-option-pad);
     box-shadow: 0px 0px var(--ion-app-shadow-size) var(--ion-app-shadow-color);
-    font-family: var(--ion-app-menu-option-font);
+    font-family: var(--ion-app-font);
     user-select: none;
 }

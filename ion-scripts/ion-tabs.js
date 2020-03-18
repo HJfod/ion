@@ -17,8 +17,10 @@ function ion_tabs_switch_to(where, tab) {
             arr(tabs[i].children).forEach((item) => {
                 item.setAttribute('class', '');
                 item.style.color = tabs[i].getAttribute('text-color');
+                item.style.backgroundColor = 'rgba(0,0,0,0)';
                 if (item.getAttribute('link') === tab) {
                     item.setAttribute('class', 'app-tab-selected');
+                    item.style.backgroundColor = tabs[i].getAttribute('selected-color');
                     item.style.color = tabs[i].getAttribute('selected-text-color');
                 }
             });
@@ -33,7 +35,16 @@ class AppTabs extends HTMLElement {
     }
 
     connectedCallback() {
-        arr(this.children).forEach((item, index) => {
+        arr(this.children).forEach((item) => {
+            if (!this.hasAttribute('text-color')) {
+                this.setAttribute('text-color', 'var(--ion-app-dark-color)');
+            }
+            if (!this.hasAttribute('selected-text-color')) {
+                this.setAttribute('selected-text-color','var(--ion-app-text-color)')
+            }
+            if (!this.hasAttribute('selected-color')) {
+                this.setAttribute('selected-color', 'var(--ion-app-main-color)')
+            }
             item.style.height = this.getAttribute('tab-height');
             item.style.fontSize = Number(this.getAttribute('tab-height').replace('px', '')) * 0.65 + 'px';
             if (item.hasAttribute('default')) {

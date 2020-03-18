@@ -15,7 +15,7 @@ app-tab {
     color: #fff;
     background-color: rgba(0,0,0,0);
     user-select: none;
-    font-family: var(--ion-app-menu-option-font);
+    font-family: var(--ion-app-font);
     font-size: 20px;
     padding-left: var(--ion-app-tabs-padding);
     padding-right: var(--ion-app-tabs-padding);

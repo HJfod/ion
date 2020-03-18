@@ -1,5 +1,4 @@
-﻿const titlebar = document.getElementsByTagName('app-titlebar')[0];
-const settings = document.getElementsByTagName('app-settings')[0];
+﻿const settings = document.getElementsByTagName('app-settings')[0];
 const ipc = require('electron').ipcRenderer;
 const html = document.documentElement;
 const $ = require('jquery');
@@ -17,60 +16,63 @@ html.style.setProperty('--ion-app-extra-color', settings.getAttribute('extra-col
 html.style.setProperty('--ion-app-shadow-color', settings.getAttribute('shadow-color'));
 html.style.setProperty('--ion-app-panel-border-color', settings.getAttribute('darker-color'));
 html.style.setProperty('--ion-app-dark-color', settings.getAttribute('dark-color'));
-html.style.setProperty('--ion-app-home-font', settings.getAttribute('font'));
-html.style.setProperty('--ion-app-menu-option-font', settings.getAttribute('font'));
+html.style.setProperty('--ion-app-font', settings.getAttribute('font'));
+html.style.setProperty('--ion-app-text-color', settings.getAttribute('text-color'));
 
 /*   titlebar   */
-
-let titlebar_div = document.createElement('div');
 
 function arr(list) {
     return Array.prototype.slice.call(list);
 }
 
-let titlebar_buttons = [];
-for (let i = 0; i < 4; i++) {
-    titlebar_buttons[i] = document.createElement('button');
-    switch (i) {
-        case 0:
-            titlebar_buttons[i].setAttribute('class', 'app-home-button close');
-            titlebar_buttons[i].setAttribute('onclick', 'window.close()');
-            titlebar_buttons[i].setAttribute('data-tool', 'Close App (Alt + F4)');
-            titlebar_buttons[i].innerHTML = '\u2715';
-            break;
-        case 1:
-            titlebar_buttons[i].setAttribute('class', 'app-home-button fs');
-            titlebar_buttons[i].setAttribute('onclick', 'ipc.send("ion-app","fs")');
-            titlebar_buttons[i].setAttribute('data-tool', 'Fullscreen (F11)');
-            titlebar_buttons[i].innerHTML = '\u2610';
-            break
-        case 2:
-            titlebar_buttons[i].setAttribute('class', 'app-home-button mz');
-            titlebar_buttons[i].setAttribute('onclick', 'ipc.send("ion-app","mz")');
-            titlebar_buttons[i].setAttribute('data-tool', 'Minimize (Ctrl + M)');
-            titlebar_buttons[i].innerHTML = '\u2500';
-            break;
-        case 3:
-            titlebar_buttons[i].setAttribute('class', 'app-home-button hm');
-            titlebar_buttons[i].setAttribute('onclick', titlebar.getAttribute('onhomeclick'));
-            titlebar_buttons[i].setAttribute('data-tool', 'Home (F2)');
-            titlebar_buttons[i].innerHTML = '\u2616';
-            break;
+class AppTitlebar extends HTMLElement {
+    constructor() {
+        super();
     }
-    titlebar_div.appendChild(titlebar_buttons[i]);
+
+    connectedCallback() {
+
+        let titlebar_buttons = [];
+        if (this.hasAttribute('onhomeclick')) {
+            let h = document.createElement('button');
+            h.setAttribute('class', 'app-home-button hm');
+            h.setAttribute('onclick', this.getAttribute('onhomeclick'));
+            h.setAttribute('data-tool', 'Home (F2)');
+            h.innerHTML = '\u2616';
+            this.appendChild(h);
+        }
+
+        let titlebar_text = document.createElement('text');
+        titlebar_text.innerHTML = this.getAttribute('name');
+        titlebar_text.setAttribute('class', 'app-home-title');
+        this.appendChild(titlebar_text);
+
+        if (!this.hasAttribute('no-mz')) {
+            let b_mz = document.createElement('button');
+            $(b_mz).attr('class', 'app-home-button mz').attr('onclick', 'ipc.send("ion-app","mz")').attr('data-tool', 'Minimize (Ctrl + M)').html('\u2500');
+            if (this.hasAttribute('disable-mz')) {
+                $(b_mz).addClass('app-home-disabled').attr('disabled','true');
+            }
+            this.appendChild(b_mz);
+        }
+
+        if (!this.hasAttribute('no-fs')) {
+            let b_fs = document.createElement('button');
+            $(b_fs).attr('class', 'app-home-button fs').attr('onclick', 'ipc.send("ion-app","fs")').attr('data-tool', 'Fullscreen (F11)').html('\u2610');
+            if (this.hasAttribute('disable-fs')) {
+                $(b_fs).addClass('app-home-disabled').attr('disabled', 'true');
+            }
+            this.appendChild(b_fs);
+        }
+
+        let b_cl = document.createElement('button');
+        $(b_cl).attr('class', 'app-home-button close').attr('onclick', 'window.close()').attr('data-tool', 'Close App (Alt + F4)').html('\u2715');
+        this.appendChild(b_cl);
+
+        html.style.setProperty('--ion-app-titlebar-color', this.getAttribute('background-color'));
+        html.style.setProperty('--ion-app-home-title-color', this.getAttribute('text-color'));
+    }
 }
-
-let titlebar_text = document.createElement('text');
-titlebar_text.innerHTML = titlebar.getAttribute('name');
-titlebar_text.setAttribute('class', 'app-home-title');
-titlebar_div.appendChild(titlebar_text);
-
-titlebar_div.setAttribute('class', 'app-titlebar');
-html.style.setProperty('--ion-app-titlebar-color', titlebar.getAttribute('background-color'));
-html.style.setProperty('--ion-app-home-title-color', titlebar.getAttribute('text-color'));
-
-document.body.insertBefore(titlebar_div, titlebar);
-document.body.removeChild(titlebar);
 
 /*   panels   */
 
@@ -140,6 +142,7 @@ class AppDragger extends HTMLElement {
     }
 }
 
+customElements.define('app-titlebar', AppTitlebar);
 customElements.define('app-group', AppGroup);
 customElements.define('app-panel', AppPanel);
 customElements.define('app-main', AppMain);

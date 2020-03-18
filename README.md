@@ -24,7 +24,11 @@ The titlebar for the app. Will be replaced with a div containing close, minimize
 + **name** The name that should be written in the titlebar.
 + **background-color** Color of the titlebar.
 + **text-color** Color of the text and buttons in the titlebar.
-+ **onhomeclick** Function that should be performed when the home button is clicked.
++ **onhomeclick** Function that should be performed when the home button is clicked. If left out, home button will not appear. `optional`
++ **disable-fs** Disable the fullscreen button. `optional`
++ **disable-mz** Disable the minimize button. `optional`
++ **no-fs** Remove the fullscreen button. `optional`
++ **no-mz** Remove the minimize button. `optional`
 
 ```html
 <app-main></app-main>
@@ -66,11 +70,11 @@ Dragger is an element that lets you resize a panel / group that it's next to. Wi
 Tabs container. Fills the group / panel they're inside. 
 + **tab-height** Height of the tabs. Type px after the value.
 + **destination** What `app-pages` element these tabs should refer to.
-+ **text-color** Color of the text inside an unselected tab.
-+ **selected-text-color** Color of the text inside a selected tab.
-+ **selected-color** Color of the background of a selected tab.
++ **text-color** Color of the text inside an unselected tab. `optional`
++ **selected-text-color** Color of the text inside a selected tab. `optional`
++ **selected-color** Color of the background of a selected tab. `optional`
 
-	
+
 ```html
 <app-tab name="NAME" link="LINK-NAME" default></app-tab>
 ```
