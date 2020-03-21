@@ -1,0 +1,1 @@
+let ion = require(require('path').join(__dirname + '/ion-scripts/ion.js'));

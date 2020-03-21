@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8" />
-    <script defer src="ion-scripts/ion.js"></script>
+    <script defer src="test.js"></script>
 </head>
 <body>
 
@@ -67,6 +67,10 @@
 
                         <app-slider min="0" max="100" increment="1" default="30" affect=""></app-slider>
 
+                        <br />
+                        
+                        <app-slider min="0" max="50" increment="2" default="0" affect=""></app-slider>
+
                     </app-panel>
 
                 </app-group>
@@ -76,6 +80,12 @@
                 <app-panel size="300px" min-size="100px">
 
                     <text>test text</text>
+
+                    <app-slider min="20" max="100" increment="0.01" default="60" affect="testvar"></app-slider>
+
+                    <br />
+
+                    <button onclick="console.log(testvar)">show</button>
 
                 </app-panel>
 

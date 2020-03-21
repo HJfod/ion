@@ -152,8 +152,6 @@ customElements.define('app-dragger', AppDragger);
 
 /*   draggers   */
 
-document.addEventListener('mouseup', drag_off);
-
 let dragger_click;
 
 function toggle_panel(which) {

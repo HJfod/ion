@@ -175,6 +175,8 @@ $(document).mousemove(() => {
     }, app_tip_timeout);
 });
 
-$(document).mouseup(() => {
+$(document).mouseup((e) => {
     close_menu();
+    drag_off(e);
+    app_slider_stop_move(e);
 });

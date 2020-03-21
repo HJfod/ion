@@ -1,21 +1,24 @@
-function loadJS(url) {
-    let script = document.createElement('script');
-    script.type = 'text/javascript';
-    script.src = url;
-    script.defer = true;
-    document.getElementsByTagName('head')[0].appendChild(script);
+module.exports = {
+    
 }
 
-function loadCSS(url) {
-    let script = document.createElement('link');
-    script.rel = 'stylesheet';
-    script.href = url;
-    document.getElementsByTagName('head')[0].appendChild(script);
-}
+let files = ['ion-main.js', 'ion-main.css', 'ion-menu-toolbox.js', 'ion-menu-toolbox.css', 'ion-tabs.js', 'ion-tabs.css', 'ion-elements.js', 'ion-elements.css'];
+let path = require('path');
 
-loadJS("ion-scripts/ion-main.js");
-loadJS("ion-scripts/ion-menu-toolbox.js");
-loadJS("ion-scripts/ion-tabs.js");
-loadCSS("ion-scripts/ion-main.css");
-loadCSS("ion-scripts/ion-menu-toolbox.css");
-loadCSS("ion-scripts/ion-tabs.css");
+for (let i in files) {
+    let n;
+    switch (files[i].split('.').pop()) {
+        case 'js':
+            n = document.createElement('script');
+            n.type = 'text/javascript';
+            n.src = path.join(__dirname + '/' + files[i]);
+            n.defer = true;
+            break;
+        case 'css':
+            n = document.createElement('link');
+            n.rel = 'stylesheet';
+            n.href = path.join(__dirname + '/' + files[i]);
+            break;
+    }
+    document.getElementsByTagName('head')[0].appendChild(n);
+}

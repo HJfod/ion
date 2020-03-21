@@ -1,0 +1,31 @@
+app-slider {
+    width: var(--ion-app-slider-width);
+    height: var(--ion-app-slider-size);
+    margin: var(--ion-app-slider-size);
+    background-color: var(--ion-app-panel-border-color);
+    display: block;
+    white-space: nowrap;
+    position: static;
+}
+
+app-slider:hover {
+    cursor: initial;
+}
+
+.app-slider-knob {
+    background-color: var(--ion-app-dark-color);
+    width: var(--ion-app-slider-size);
+    height: var(--ion-app-slider-size);
+    transition-duration: var(--gui-transition-time);
+}
+
+.app-slider-knob:hover {
+    background-color: var(--ion-app-extra-color);
+}
+
+.app-slider-text {
+    position: absolute;
+    display: flex;
+    color: var(--ion-app-text-color);
+    margin-top: calc(0 - var(--ion-app-slider-size));
+}

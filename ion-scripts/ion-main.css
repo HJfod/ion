@@ -30,6 +30,9 @@
     --ion-app-tabs-padding:                 5px;
 
     --ion-app-scrollbar-size:               10px;
+
+    --ion-app-slider-size:                  10px;
+    --ion-app-slider-width:                 150px;
 }
 
 ::-webkit-scrollbar {
@@ -55,7 +58,7 @@ body {
     margin: 0;
     padding: 0;
     background-color: var(--ion-app-main-color);
-    overflow: hidden;
+    overflow: auto;
     font-family: var(--ion-app-font);
     color: var(--ion-app-text-color);
 }
@@ -153,7 +156,6 @@ app-main {
     align-items: stretch;
     flex-grow: 1;
     flex-shrink: 0;
-    flex-wrap: wrap;
     z-index: 0;
 }
 
@@ -174,13 +176,12 @@ app-group {
 }
 
 app-panel {
-    display: flex;
-    align-items: stretch;
     flex-grow: 1;
     flex-shrink: 0;
     box-sizing: border-box;
     border: var(--ion-app-panel-border-size) solid var(--ion-app-panel-border-color);
     z-index: 0;
+    white-space: normal;
 }
 
 app-dragger {
