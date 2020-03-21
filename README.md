@@ -1,6 +1,16 @@
 # Ion
 Electron addition that features all the styles and js stuff i use
 
+# How to use
+In the head of your HTML file, just call `ion-scripts/ion.js`, which loads all the other files automatically.
+
+#### Example:
+```html
+<head>
+	<script type='text/javascript' src='ion-scripts/ion.js' defer></script>
+</head>
+```
+
 # Documentation
 ```html
 <app-settings app-name="APP-NAME-HERE" main-color="#COLOR" extra-color="#COLOR" shadow-color="rgba(COLOR)" dark-color="#COLOR" darker-color="#COLOR"></app-settings>
