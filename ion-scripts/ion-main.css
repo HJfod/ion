@@ -59,7 +59,7 @@ body {
     margin: 0;
     padding: 0;
     background-color: var(--ion-app-main-color);
-    overflow: auto;
+    overflow: hidden;
     font-family: var(--ion-app-font);
     color: var(--ion-app-text-color);
 }

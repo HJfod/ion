@@ -242,6 +242,8 @@ function drag_on(e) {
 }
 
 function dragging(e, o, p, offset, w, h) {
+    let prev_w = o.style.width, prev_h = o.style.height;
+
     if (e.getAttribute('class') == 'app-dragger left-right') {
         o.style.width = p ? w - offset + mouse_x + 'px' : w + offset - mouse_x + 'px';
         document.body.style.cursor = 'ew-resize';
@@ -259,6 +261,14 @@ function dragging(e, o, p, offset, w, h) {
             }
         }
     }
+    
+    if ($('app-main')[0].scrollWidth > $('app-main').innerWidth() + 7) {
+        o.style.width = prev_w;
+    }
+
+    if ($('app-main')[0].scrollHeight > $('app-main').innerHeight()) {
+        o.style.height = prev_h;
+    }
 
     dragger_click = setTimeout(() => { if (dragger_click != null) { dragging(e, o, p, offset, w, h) } }, 1 );
 }
@@ -268,3 +278,22 @@ function drag_off(e) {
     dragger_click = null;
     document.body.style.cursor = 'initial';
 }
+
+window.onresize = (e) => {
+    let a = $('app-main');
+    let ele = [$('app-panel'), $('app-group')];
+    if (a[0].scrollWidth > a.innerWidth() + 7) {
+        ele.forEach((item) => {
+            item.each((index) => {
+                let min = 10;
+                if (item[index].hasAttribute('min-size')) {
+                    min = Number(item[index].getAttribute('min-size').replace('px', ''));
+                }
+                if (Number(item[index].style.width.replace('px', '')) > min) {
+                    item[index].style.width = (Number(item[index].style.width.replace('px', '')) - 1) + 'px';
+                }
+            });
+        });
+    }
+
+};
