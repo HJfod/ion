@@ -3,12 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8" />
-    <script defer src="ion-scripts/ion-main.js"></script>
-    <script defer src="ion-scripts/ion-menu-toolbox.js"></script>
-    <script defer src="ion-scripts/ion-tabs.js"></script>
-    <link rel="stylesheet" href="ion-scripts/ion-main.css"/>
-    <link rel="stylesheet" href="ion-scripts/ion-menu-toolbox.css"/>
-    <link rel="stylesheet" href="ion-scripts/ion-tabs.css"/>
+    <script defer src="ion-scripts/ion.js"></script>
 </head>
 <body>
 
@@ -22,7 +17,7 @@
 
             <app-group size="40px" min-size="30px" direction="left-right">
 
-                <app-panel size="300px" min-size="30px" direction="left-right">
+                <app-panel size="500px" min-size="30px" direction="left-right">
 
                     <app-tabs tab-height="25px" destination="tab-test">
                         <!-- plus-button="name: __prompt; tab-menu: {Option 1=>;Option 2=>{Option=>;O=>}}"-->
@@ -70,7 +65,7 @@
 
                     <app-panel data-tip="Yeah, this is some custom text">
 
-                        <text data-tip="Text!!">txt</text>
+                        <app-slider min="0" max="100" increment="1" default="30" affect=""></app-slider>
 
                     </app-panel>
 

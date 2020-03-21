@@ -1,7 +1,13 @@
 ﻿const settings = document.getElementsByTagName('app-settings')[0];
+const fs = require('fs');
+const path = require('path');
 const ipc = require('electron').ipcRenderer;
 const html = document.documentElement;
 const $ = require('jquery');
+
+function arr(list) {
+    return Array.prototype.slice.call(list);
+}
 
 $(document).mousemove((e) => {
     mouse_x = e.pageX;
@@ -20,10 +26,6 @@ html.style.setProperty('--ion-app-font', settings.getAttribute('font'));
 html.style.setProperty('--ion-app-text-color', settings.getAttribute('text-color'));
 
 /*   titlebar   */
-
-function arr(list) {
-    return Array.prototype.slice.call(list);
-}
 
 class AppTitlebar extends HTMLElement {
     constructor() {
