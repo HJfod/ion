@@ -1,4 +1,5 @@
 ﻿const settings = document.getElementsByTagName('app-settings')[0];
+
 const fs = require('fs');
 const path = require('path');
 const ipc = require('electron').ipcRenderer;
@@ -7,6 +8,26 @@ const $ = require('jquery');
 
 function arr(list) {
     return Array.prototype.slice.call(list);
+}
+
+function CSSVarColorLuminance(hex, lum) {	// thanks sitepoint.com
+
+    // validate hex string
+    hex = String(hex).replace(/[^0-9a-f]/gi, '');
+    if (hex.length < 6) {
+        hex = hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2];
+    }
+    lum = lum || 0;
+
+    // convert to decimal and change luminosity
+    var rgb = "#", c, i;
+    for (i = 0; i < 3; i++) {
+        c = parseInt(hex.substr(i * 2, 2), 16);
+        c = Math.round(Math.min(Math.max(0, c + (c * lum)), 255)).toString(16);
+        rgb += ("00" + c).substr(c.length);
+    }
+
+    return rgb;
 }
 
 $(document).mousemove((e) => {

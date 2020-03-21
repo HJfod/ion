@@ -27,12 +27,13 @@
     --ion-app-menu-option-pad:              5px;
     --ion-app-menu-option-text-size:        16px;
 
-    --ion-app-tabs-padding:                 5px;
-
+    --ion-app-padding:                      5px;
     --ion-app-scrollbar-size:               10px;
+    --ion-app-corner-radius:                0px;
 
     --ion-app-slider-size:                  10px;
     --ion-app-slider-width:                 150px;
+    --ion-app-slider-thumb-size:            16px;
 }
 
 ::-webkit-scrollbar {

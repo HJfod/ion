@@ -17,8 +17,8 @@ app-tab {
     user-select: none;
     font-family: var(--ion-app-font);
     font-size: 20px;
-    padding-left: var(--ion-app-tabs-padding);
-    padding-right: var(--ion-app-tabs-padding);
+    padding-left: var(--ion-app-padding);
+    padding-right: var(--ion-app-padding);
     transition-duration: var(--ion-app-transition-duration);
     align-self: flex-end;
     border: calc( var(--ion-app-panel-border-size) * 2) solid rgba(0,0,0,0);

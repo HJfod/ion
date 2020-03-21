@@ -17,7 +17,7 @@ function ion_tabs_switch_to(where, tab) {
             arr(tabs[i].children).forEach((item) => {
                 item.setAttribute('class', '');
                 item.style.color = tabs[i].getAttribute('text-color');
-                item.style.backgroundColor = 'rgba(0,0,0,0)';
+                item.style.backgroundColor = '';
                 if (item.getAttribute('link') === tab) {
                     item.setAttribute('class', 'app-tab-selected');
                     item.style.backgroundColor = tabs[i].getAttribute('selected-color');
