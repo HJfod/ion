@@ -2,8 +2,6 @@ module.exports = {};
 
 const { BrowserWindow, ipcMain } = require('electron');
 
-var x = 45;
-
 ipcMain.on('ion-app', (event, arg) => {
     arg = JSON.parse(arg);
     switch (arg.name) {

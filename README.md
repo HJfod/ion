@@ -26,7 +26,7 @@ Tag that won't be displayed. Overall settings for the app.
 + **extra-color** Subsidiary secondary color of the app. Sets the scrollbar hover color as well as others.
 + **shadow-color** Color for the shadow that panels, dropdowns and such have in their edges.
 + **dark-color** A color brighter than the main color.
-+ **darker-color** A color brighter than the main color yet darker than `dark-color.`
++ **darker-color** A color brighter than the main color yet darker than `dark-color`.
 + **font** Main font for the app.
 
 ```html
@@ -161,4 +161,4 @@ Nested option menus are declared inside block brackets `{` and `}`.
 
 Example of a contextmenu:
 
-> Option 1=>Function();Option 2=>Function();Option 3=>{Nested 1=>Function();Nested 2=>Function();Nested 3=>Function()};Option 4=>Function();
+> Option 1=>Function();Option 2=>Function();Option 3=>{Nested 1=>Function();Nested 2=>Function();Nested 3=>Function()};Option 4=>Function()
