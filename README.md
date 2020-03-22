@@ -26,7 +26,7 @@ Tag that won't be displayed. Overall settings for the app.
 + **font** Main font for the app.
 
 ```html
-<app-titlebar name="NAME-HERE" background-color="#COLOR" text-color="#COLOR" onhomeclick="FUNCTION()"></app-titlebar>
+<app-titlebar name="NAME-HERE" background-color="#COLOR" text-color="#COLOR" onhomeclick="FUNCTION()" disable-fs disable-mz no-fs no-mz></app-titlebar>
 ```
 
 The titlebar for the app. Will be replaced with a div containing close, minimize, fullscreen and home buttons on startup.
@@ -35,10 +35,10 @@ The titlebar for the app. Will be replaced with a div containing close, minimize
 + **background-color** Color of the titlebar.
 + **text-color** Color of the text and buttons in the titlebar.
 + **onhomeclick** Function that should be performed when the home button is clicked. If left out, home button will not appear. `optional`
-+ **disable-fs** Disable the fullscreen button. `optional`
-+ **disable-mz** Disable the minimize button. `optional`
-+ **no-fs** Remove the fullscreen button. `optional`
-+ **no-mz** Remove the minimize button. `optional`
++ **disable-fs** Disable the fullscreen button. `optional` `boolean`
++ **disable-mz** Disable the minimize button. `optional` `boolean`
++ **no-fs** Remove the fullscreen button. `optional` `boolean`
++ **no-mz** Remove the minimize button. `optional` `boolean`
 
 ```html
 <app-main>CONTENTS</app-main>
