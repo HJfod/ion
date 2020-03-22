@@ -54,3 +54,56 @@ app-button:hover {
     background-color: var(--ion-app-dark-color);
     cursor: pointer;
 }
+
+app-checkbox {
+    display: block;
+    margin: var(--ion-app-slider-size);
+    width: var(--ion-app-slider-thumb-size);
+    height: calc( var(--ion-app-slider-thumb-size) / 10 );
+}
+
+app-checkbox:hover .app-checkbox-box {
+    background-color: var(--ion-app-dark-color);
+    cursor: pointer;
+}
+
+.app-checkbox-box {
+    display: flex;
+    position: absolute;
+    background-color: var(--ion-app-panel-border-color);
+    width: var(--ion-app-slider-thumb-size);
+    height: var(--ion-app-slider-thumb-size);
+    margin-top: calc((var(--ion-app-slider-thumb-size) - var(--ion-app-slider-size)) / 2);
+    transition-duration: var(--gui-transition-time);
+    border-radius: var(--ion-app-corner-radius);
+}
+
+.app-checkbox-text {
+    position: absolute;
+    display: flex;
+    color: var(--ion-app-text-color);
+    font-size: calc( var(--ion-app-slider-size) * 1.5 );
+    margin-top: 0px;
+    margin-left: calc( var(--ion-app-slider-thumb-size) + var(--ion-app-padding) );
+    user-select: none;
+}
+
+.app-checkbox-text:hover {
+    cursor: pointer;
+}
+
+.app-checkbox-checked {
+    background-color: var(--ion-app-extra-color);
+}
+
+app-checkmark {
+    position: absolute;
+    width: calc( var(--ion-app-slider-thumb-size) / 4);
+    height: calc( var(--ion-app-slider-thumb-size) / 2);
+    border-bottom: var(--ion-app-checkmark-size) solid var(--ion-app-text-color);
+    border-right: var(--ion-app-checkmark-size) solid var(--ion-app-text-color);
+    margin-left: calc( var(--ion-app-slider-thumb-size) / 4 );
+    margin-top: calc( var(--ion-app-slider-thumb-size) / 4 );
+    transform: rotate(45deg);
+    border-radius: var(--ion-app-corner-radius);
+}

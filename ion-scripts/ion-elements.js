@@ -13,7 +13,11 @@ class AppSlider extends HTMLElement {
         knob.style.marginLeft = calc + 'px';
         this.appendChild(knob);
 
-        window[this.getAttribute('affect')] = Number(this.getAttribute('default'));
+        if (this.hasAttribute('affect')) {
+            window[this.getAttribute('affect')] = Number(this.getAttribute('default'));
+        }
+
+        this.setAttribute('value', this.getAttribute('default'));
 
         knob.style.borderColor = CSSVarColorLuminance(getComputedStyle(html).getPropertyValue('--ion-app-dark-color'), 0.2);
 
@@ -33,6 +37,37 @@ class AppButton extends HTMLElement {
 
     connectedCallback() {
 
+    }
+}
+
+class AppCheckbox extends HTMLElement {
+    constructor() {
+        super();
+    }
+
+    connectedCallback() {
+        let t = this.innerText;
+        this.innerText = '';
+
+        let box = document.createElement('div');
+        box.setAttribute('class', 'app-checkbox-box');
+        this.appendChild(box);
+
+        let text = document.createElement('text');
+        text.innerHTML = t;
+        text.setAttribute('class', 'app-checkbox-text');
+        this.appendChild(text);
+
+        this.setAttribute('onclick', 'app_checkbox_check(event)');
+
+        if (this.hasAttribute('affect')) {
+            window[this.getAttribute('affect')] = this.hasAttribute('checked');
+        }
+
+        if (this.hasAttribute('checked')) {
+            $(box).addClass('app-checkbox-checked');
+            $(this).append(document.createElement('app-checkmark'));
+        }
     }
 }
 
@@ -56,6 +91,7 @@ function app_slider_move(e) {
 }
 
 var testvar = 0;
+var testvar2 = 0;
 
 function moving_slider(s) {
     pos = s.position().left;
@@ -88,6 +124,8 @@ function moving_slider(s) {
 
     s.css('margin-left', `calc(${s.css('margin-left')} - ${o}px)`);
 
+    s.parent().attr('value',calc);
+
     slider_timeout = setTimeout(() => { if (slider_timeout != null) { moving_slider(s) } else { s.css('background-color', '').css('border-width', '') } }, 1);
 }
 
@@ -95,5 +133,47 @@ function app_slider_stop_move() {
     slider_timeout = null;
 }
 
+function app_checkbox_check(e) {
+    e.preventDefault();
+    let b;
+
+    switch (e.target.tagName) {
+        case 'APP-CHECKBOX':
+            b = $(e.target).children().first();
+            break;
+        case 'DIV':
+            b = $(e.target);
+            break;
+        case 'TEXT':
+            b = $(e.target).parent().children().first();
+            break;
+        default:
+            return;
+    }
+
+    if (b.parent().attr('checked')) {
+        b.removeClass('app-checkbox-checked');
+        b.parent().removeAttr('checked');
+        b.parent().children().each((i) => {
+            if ($(b.parent().children()[i]).prop('tagName') === 'APP-CHECKMARK') {
+                $(b.parent().children()[i]).remove();
+            }
+        });
+
+        if (b.parent().attr('affect')) {
+            window[b.parent().attr('affect')] = false;
+        }
+    } else {
+        b.addClass('app-checkbox-checked');
+        b.parent().attr('checked', 1);
+        b.parent().append(document.createElement('app-checkmark'));
+
+        if (b.parent().attr('affect')) {
+            window[b.parent().attr('affect')] = true;
+        }
+    }
+}
+
 customElements.define('app-slider', AppSlider);
 customElements.define('app-button', AppButton);
+customElements.define('app-checkbox', AppCheckbox);

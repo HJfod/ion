@@ -263,11 +263,15 @@ function dragging(e, o, p, offset, w, h) {
     }
     
     if ($('app-main')[0].scrollWidth > $('app-main').innerWidth() + 7) {
-        o.style.width = prev_w;
+        if (o.style.width > prev_w) {
+            o.style.width = prev_w;
+        }
     }
 
     if ($('app-main')[0].scrollHeight > $('app-main').innerHeight()) {
-        o.style.height = prev_h;
+        if (o.style.height > prev_h) {
+            o.style.height = prev_h;
+        }
     }
 
     dragger_click = setTimeout(() => { if (dragger_click != null) { dragging(e, o, p, offset, w, h) } }, 1 );
@@ -279,21 +283,56 @@ function drag_off(e) {
     document.body.style.cursor = 'initial';
 }
 
+let stop_resize_while_loop = [false,false];     /*   width, height   */
+
 window.onresize = (e) => {
     let a = $('app-main');
     let ele = [$('app-panel'), $('app-group')];
-    if (a[0].scrollWidth > a.innerWidth() + 7) {
+    let i = 0;
+    let limit = { loop: 600, min: 20, inc: 2 };
+    while ((a[0].scrollWidth > a.innerWidth() + 7) && !stop_resize_while_loop[0]) {
         ele.forEach((item) => {
             item.each((index) => {
-                let min = 10;
+                let min = limit.min;
                 if (item[index].hasAttribute('min-size')) {
                     min = Number(item[index].getAttribute('min-size').replace('px', ''));
                 }
                 if (Number(item[index].style.width.replace('px', '')) > min) {
-                    item[index].style.width = (Number(item[index].style.width.replace('px', '')) - 1) + 'px';
+                    item[index].style.width = (Number(item[index].style.width.replace('px', '')) - limit.inc) + 'px';
                 }
             });
         });
+        i++;
+        if (i > limit.loop) {
+            stop_resize_while_loop[0] = true;
+            break;
+        }
     }
 
+    let j = 0;
+    while ((a[0].scrollHeight > a.innerHeight() + 7) && !stop_resize_while_loop[1]) {
+        ele.forEach((item) => {
+            item.each((index) => {
+                let min = limit.min;
+                if (item[index].hasAttribute('min-size')) {
+                    min = Number(item[index].getAttribute('min-size').replace('px', ''));
+                }
+                if (Number(item[index].style.height.replace('px', '')) > min) {
+                    item[index].style.height = (Number(item[index].style.height.replace('px', '')) - limit.inc) + 'px';
+                }
+            });
+        });
+        j++;
+        if (j > limit.loop) {
+            stop_resize_while_loop[1] = true;
+            break;
+        }
+    }
+
+    if (a[0].scrollWidth <= a.innerWidth() + 7) {
+        stop_resize_while_loop[0] = false;
+    }
+    if (a[0].scrollHeight <= a.innerHeight() + 7) {
+        stop_resize_while_loop[1] = false;
+    }
 };

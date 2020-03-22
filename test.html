@@ -16,7 +16,7 @@
 
         <app-group direction="top-down">
 
-            <app-panel size="50px"></app-panel>
+            <app-panel size="50px" min-size="30px"></app-panel>
 
             <app-group size="40px" min-size="20px" direction="left-right">
 
@@ -84,11 +84,19 @@
 
                     <text>test text</text>
 
-                    <app-slider min="20" max="100" increment="0.01" default="60" affect="testvar"></app-slider>
+                    <app-slider min="20" max="100" increment="0.01" default="60"></app-slider>
 
                     <br />
 
                     <app-button onclick="console.log(testvar)">show</app-button>
+
+                    <br />
+
+                    <app-checkbox affect="testvar2">Test checkbox</app-checkbox>
+
+                    <br />
+
+                    <app-button onclick="console.log(testvar2)">show 2</app-button>
 
                 </app-panel>
 
