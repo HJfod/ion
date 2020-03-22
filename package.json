@@ -1,6 +1,6 @@
 {
   "name": "ion",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "Electron addition that features all the styles and js stuff i use",
   "main": "index.js",
   "dependencies": {
