@@ -5,6 +5,7 @@ const path = require('path');
 const ipc = require('electron').ipcRenderer;
 const html = document.documentElement;
 const $ = require('jquery');
+const remote = require('electron').remote;
 
 function arr(list) {
     return Array.prototype.slice.call(list);
@@ -72,7 +73,7 @@ class AppTitlebar extends HTMLElement {
 
         if (!this.hasAttribute('no-mz')) {
             let b_mz = document.createElement('button');
-            $(b_mz).attr('class', 'app-home-button mz').attr('onclick', 'ipc.send("ion-app","mz")').attr('data-tool', 'Minimize (Ctrl + M)').html('\u2500');
+            $(b_mz).attr('class', 'app-home-button mz').attr('onclick', `ipc.send("ion-app",'{ "name": "mz", "val": "${remote.getCurrentWindow().id}" }')`).attr('data-tool', 'Minimize (Ctrl + M)').html('\u2500');
             if (this.hasAttribute('disable-mz')) {
                 $(b_mz).addClass('app-home-disabled').attr('disabled','true');
             }
@@ -81,7 +82,7 @@ class AppTitlebar extends HTMLElement {
 
         if (!this.hasAttribute('no-fs')) {
             let b_fs = document.createElement('button');
-            $(b_fs).attr('class', 'app-home-button fs').attr('onclick', 'ipc.send("ion-app","fs")').attr('data-tool', 'Fullscreen (F11)').html('\u2610');
+            $(b_fs).attr('class', 'app-home-button fs').attr('onclick', `ipc.send("ion-app",'{ "name": "fs", "val": "${remote.getCurrentWindow().id}" }')`).attr('data-tool', 'Fullscreen (F11)').html('\u2610');
             if (this.hasAttribute('disable-fs')) {
                 $(b_fs).addClass('app-home-disabled').attr('disabled', 'true');
             }

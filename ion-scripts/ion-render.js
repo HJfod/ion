@@ -1,6 +1,4 @@
-module.exports = {
-    
-}
+module.exports = {};
 
 let files = ['ion-main.js', 'ion-main.css', 'ion-menu-toolbox.js', 'ion-menu-toolbox.css', 'ion-tabs.js', 'ion-tabs.css', 'ion-elements.js', 'ion-elements.css'];
 

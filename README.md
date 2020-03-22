@@ -2,13 +2,17 @@
 Electron addition that features all the styles and js stuff i use
 
 # How to use
-In the head of your HTML file, just call `ion-scripts/ion.js`, which loads all the other files automatically. **All files must be containted in the same folder as `ion.js`.**
+In your `index.js` file, call `ion-index.js`, which will handle the process side code like ipc messages.
 
-#### Example:
-```html
-<head>
-	<script type='text/javascript' src='ion-scripts/ion.js' defer></script>
-</head>
+In your main renderer JS file, call `ion-render.js`, which loads all the other files automatically. **All files must be containted in the same folder as `ion-render.js`.**
+
+### Example:
+```js
+// in index.js
+require(require('path').join(__dirname + '/ion-scripts/ion-index.js'));
+
+// in renderer process
+require(require('path').join(__dirname + '/ion-scripts/ion-render.js'));
 ```
 
 # Documentation
@@ -44,7 +48,7 @@ The titlebar for the app. Will be replaced with a div containing close, minimize
 <app-main>CONTENTS</app-main>
 ```
 
-Main app div. This is where all your panels go.
+Main app div. This is where all your groups and panels go.
 
 ```html
 <app-group direction="left-right || top-down" size="SIZEpx" min-size="SIZEpx">CONTENTS</app-group>
