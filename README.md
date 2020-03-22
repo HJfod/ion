@@ -2,7 +2,7 @@
 Electron addition that features all the styles and js stuff i use
 
 # How to use
-In the head of your HTML file, just call `ion-scripts/ion.js`, which loads all the other files automatically.
+In the head of your HTML file, just call `ion-scripts/ion.js`, which loads all the other files automatically. **All files must be containted in the same folder as `ion.js`.**
 
 #### Example:
 ```html
