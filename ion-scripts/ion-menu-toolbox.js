@@ -1,9 +1,9 @@
 ﻿let app_tip_timeout = 1000;
 
 
-$('[data-menu]').contextmenu((e) => {
+ion_$('[data-menu]').contextmenu((e) => {
     e.preventDefault();
-    let ta = $(e.target);
+    let ta = ion_$(e.target);
 
     let i = 0;
     while (ta.attr('data-menu') == undefined) {
@@ -22,7 +22,7 @@ function open_contextmenu(menu, x = null, y = null, level = 0) {
     let e = arr(document.getElementsByClassName('app-contextmenu'));
     e.forEach((item, index) => {
         if (Number(item.getAttribute('level')) >= Number(level)) {
-            $(item).remove();
+            ion_$(item).remove();
         }
     });
 
@@ -90,7 +90,7 @@ function open_contextmenu(menu, x = null, y = null, level = 0) {
 
     document.body.appendChild(m);
 
-    let mex = mouse_x, mey = mouse_y, mw = Number($(m).css('width').replace('px', '')), mh = Number($(m).css('height').replace('px', ''));
+    let mex = mouse_x, mey = mouse_y, mw = Number(ion_$(m).css('width').replace('px', '')), mh = Number(ion_$(m).css('height').replace('px', ''));
 
     if ((x && y) !== null) {
         mex = x;
@@ -106,10 +106,10 @@ function open_contextmenu(menu, x = null, y = null, level = 0) {
 
     // console.log(mex + ',' + mey);
     
-    $(m).css('top', mey + 'px').css('left', mex + 'px');
+    ion_$(m).css('top', mey + 'px').css('left', mex + 'px');
     
     add.forEach((item, index) => {
-        let i = Number((getComputedStyle(html).getPropertyValue('--ion-app-menu-option-height')).replace('px',''));
+        let i = Number((getComputedStyle(ion_html).getPropertyValue('--ion-app-menu-option-height')).replace('px',''));
 
         item.b.setAttribute('onmouseup', `open_contextmenu("${item.a}",${mex + mw},${mey + item.i * i},${level + 1})`);
     });
@@ -119,20 +119,20 @@ function close_menu(click = false) {
     let hover = false;
     let e = arr(document.getElementsByClassName('app-contextmenu'));
     e.forEach((item, index) => {
-        if ($(item).is(':hover')) {
+        if (ion_$(item).is(':hover')) {
             hover = true;
         }
     });
     if (!hover || click) {
-        $('.app-contextmenu').remove();
+        ion_$('.app-contextmenu').remove();
     }
 }
 
 let tip_timeout;
 let current_tip = null;
 
-$('[data-tip]').mouseover((e) => {
-    let ta = $(e.target);
+ion_$('[data-tip]').mouseover((e) => {
+    let ta = ion_$(e.target);
 
     let i = 0;
     while (ta.attr('data-tip') == undefined) {
@@ -149,17 +149,17 @@ $('[data-tip]').mouseover((e) => {
     current_tip = null;
 });
 
-$(document).mousemove(() => {
+ion_$(document).mousemove(() => {
     let e = arr(document.getElementsByTagName('app-tooltip'));
     e.forEach((item, index) => {
-        $(item).remove();
+        ion_$(item).remove();
     });
     clearTimeout(tip_timeout);
     tip_timeout = setTimeout(() => {
         if (current_tip !== null) {
             let tip = document.createElement('app-tooltip');
-            $(tip).text(current_tip);
-            let mex = mouse_x, mey = mouse_y, mw = Number($(tip).css('width').replace('px', '')), mh = Number($(tip).css('height').replace('px', ''));
+            ion_$(tip).text(current_tip);
+            let mex = mouse_x, mey = mouse_y, mw = Number(ion_$(tip).css('width').replace('px', '')), mh = Number(ion_$(tip).css('height').replace('px', ''));
 
             if (mex > window.innerWidth - mw) {
                 mex = mex - mw;
@@ -168,14 +168,14 @@ $(document).mousemove(() => {
                 mey = mey - mh;
             }
 
-            $(tip).css('top', mey + 'px').css('left', mex + 'px');
+            ion_$(tip).css('top', mey + 'px').css('left', mex + 'px');
 
             document.body.appendChild(tip);
         }
     }, app_tip_timeout);
 });
 
-$(document).mouseup((e) => {
+ion_$(document).mouseup((e) => {
     close_menu();
     drag_off(e);
     app_slider_stop_move(e);

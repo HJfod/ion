@@ -1,11 +1,9 @@
 ﻿const settings = document.getElementsByTagName('app-settings')[0];
 
-const fs = require('fs');
-const path = require('path');
-const ipc = require('electron').ipcRenderer;
-const html = document.documentElement;
-const $ = require('jquery');
-const remote = require('electron').remote;
+const ion_ipc = require('electron').ipcRenderer;
+const ion_html = document.documentElement;
+const ion_$ = require('jquery');
+const ion_remote = require('electron').remote;
 
 function arr(list) {
     return Array.prototype.slice.call(list);
@@ -31,7 +29,7 @@ function CSSVarColorLuminance(hex, lum) {	// thanks sitepoint.com
     return rgb;
 }
 
-$(document).mousemove((e) => {
+ion_$(document).mousemove((e) => {
     mouse_x = e.pageX;
     mouse_y = e.pageY;
 });
@@ -39,13 +37,13 @@ $(document).mousemove((e) => {
 /*   settings   */
 
 document.title = settings.getAttribute('app-name');
-html.style.setProperty('--ion-app-main-color', settings.getAttribute('main-color'));
-html.style.setProperty('--ion-app-extra-color', settings.getAttribute('extra-color'));
-html.style.setProperty('--ion-app-shadow-color', settings.getAttribute('shadow-color'));
-html.style.setProperty('--ion-app-panel-border-color', settings.getAttribute('darker-color'));
-html.style.setProperty('--ion-app-dark-color', settings.getAttribute('dark-color'));
-html.style.setProperty('--ion-app-font', settings.getAttribute('font'));
-html.style.setProperty('--ion-app-text-color', settings.getAttribute('text-color'));
+ion_html.style.setProperty('--ion-app-main-color', settings.getAttribute('main-color'));
+ion_html.style.setProperty('--ion-app-extra-color', settings.getAttribute('extra-color'));
+ion_html.style.setProperty('--ion-app-shadow-color', settings.getAttribute('shadow-color'));
+ion_html.style.setProperty('--ion-app-panel-border-color', settings.getAttribute('darker-color'));
+ion_html.style.setProperty('--ion-app-dark-color', settings.getAttribute('dark-color'));
+ion_html.style.setProperty('--ion-app-font', settings.getAttribute('font'));
+ion_html.style.setProperty('--ion-app-text-color', settings.getAttribute('text-color'));
 
 /*   titlebar   */
 
@@ -73,28 +71,28 @@ class AppTitlebar extends HTMLElement {
 
         if (!this.hasAttribute('no-mz')) {
             let b_mz = document.createElement('button');
-            $(b_mz).attr('class', 'app-home-button mz').attr('onclick', `ipc.send("ion-app",'{ "name": "mz", "val": "${remote.getCurrentWindow().id}" }')`).attr('data-tool', 'Minimize (Ctrl + M)').html('\u2500');
+            ion_$(b_mz).attr('class', 'app-home-button mz').attr('onclick', `ion_ipc.send("ion-app",'{ "name": "mz", "val": "${ion_remote.getCurrentWindow().id}" }')`).attr('data-tool', 'Minimize (Ctrl + M)').html('\u2500');
             if (this.hasAttribute('disable-mz')) {
-                $(b_mz).addClass('app-home-disabled').attr('disabled','true');
+                ion_$(b_mz).addClass('app-home-disabled').attr('disabled','true');
             }
             this.appendChild(b_mz);
         }
 
         if (!this.hasAttribute('no-fs')) {
             let b_fs = document.createElement('button');
-            $(b_fs).attr('class', 'app-home-button fs').attr('onclick', `ipc.send("ion-app",'{ "name": "fs", "val": "${remote.getCurrentWindow().id}" }')`).attr('data-tool', 'Fullscreen (F11)').html('\u2610');
+            ion_$(b_fs).attr('class', 'app-home-button fs').attr('onclick', `ion_ipc.send("ion-app",'{ "name": "fs", "val": "${ion_remote.getCurrentWindow().id}" }')`).attr('data-tool', 'Fullscreen (F11)').html('\u2610');
             if (this.hasAttribute('disable-fs')) {
-                $(b_fs).addClass('app-home-disabled').attr('disabled', 'true');
+                ion_$(b_fs).addClass('app-home-disabled').attr('disabled', 'true');
             }
             this.appendChild(b_fs);
         }
 
         let b_cl = document.createElement('button');
-        $(b_cl).attr('class', 'app-home-button close').attr('onclick', 'window.close()').attr('data-tool', 'Close App (Alt + F4)').html('\u2715');
+        ion_$(b_cl).attr('class', 'app-home-button close').attr('onclick', 'window.close()').attr('data-tool', 'Close App (Alt + F4)').html('\u2715');
         this.appendChild(b_cl);
 
-        html.style.setProperty('--ion-app-titlebar-color', this.getAttribute('background-color'));
-        html.style.setProperty('--ion-app-home-title-color', this.getAttribute('text-color'));
+        ion_html.style.setProperty('--ion-app-titlebar-color', this.getAttribute('background-color'));
+        ion_html.style.setProperty('--ion-app-home-title-color', this.getAttribute('text-color'));
     }
 }
 
@@ -263,13 +261,13 @@ function dragging(e, o, p, offset, w, h) {
         }
     }
     
-    if ($('app-main')[0].scrollWidth > $('app-main').innerWidth() + 7) {
+    if (ion_$('app-main')[0].scrollWidth > ion_$('app-main').innerWidth() + 7) {
         if (o.style.width > prev_w) {
             o.style.width = prev_w;
         }
     }
 
-    if ($('app-main')[0].scrollHeight > $('app-main').innerHeight()) {
+    if (ion_$('app-main')[0].scrollHeight > ion_$('app-main').innerHeight()) {
         if (o.style.height > prev_h) {
             o.style.height = prev_h;
         }
@@ -287,8 +285,8 @@ function drag_off(e) {
 let stop_resize_while_loop = [false,false];     /*   width, height   */
 
 window.onresize = (e) => {
-    let a = $('app-main');
-    let ele = [$('app-panel'), $('app-group')];
+    let a = ion_$('app-main');
+    let ele = [ion_$('app-panel'), ion_$('app-group')];
     let i = 0;
     let limit = { loop: 600, min: 20, inc: 2 };
     while ((a[0].scrollWidth > a.innerWidth() + 7) && !stop_resize_while_loop[0]) {

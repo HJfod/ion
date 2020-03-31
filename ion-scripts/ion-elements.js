@@ -4,9 +4,9 @@ class AppSlider extends HTMLElement {
     }
 
     connectedCallback() {
-        let w = Number(getComputedStyle(html).getPropertyValue('--ion-app-slider-width').replace('px', ''));
+        let w = Number(getComputedStyle(ion_html).getPropertyValue('--ion-app-slider-width').replace('px', ''));
 
-        let calc = (Math.round((Number(this.getAttribute('default'))) + Number(getComputedStyle(html).getPropertyValue('--ion-app-slider-size').replace('px', ''))));
+        let calc = (Math.round((Number(this.getAttribute('default'))) + Number(getComputedStyle(ion_html).getPropertyValue('--ion-app-slider-size').replace('px', ''))));
 
         let knob = document.createElement('div');
         knob.setAttribute('class', 'app-slider-thumb');
@@ -19,12 +19,12 @@ class AppSlider extends HTMLElement {
 
         this.setAttribute('value', this.getAttribute('default'));
 
-        knob.style.borderColor = CSSVarColorLuminance(getComputedStyle(html).getPropertyValue('--ion-app-dark-color'), 0.2);
+        knob.style.borderColor = CSSVarColorLuminance(getComputedStyle(ion_html).getPropertyValue('--ion-app-dark-color'), 0.2);
 
         this.setAttribute('onmousedown', 'app_slider_move(event)');
         let t = document.createElement('text');
         t.setAttribute('class', 'app-slider-text');
-        t.style.marginLeft = w + (Number(getComputedStyle(html).getPropertyValue('--ion-app-padding').replace('px', '')) * 2) + 'px';
+        t.style.marginLeft = w + (Number(getComputedStyle(ion_html).getPropertyValue('--ion-app-padding').replace('px', '')) * 2) + 'px';
         t.innerHTML = Number(this.getAttribute('default'));
         this.appendChild(t);
     }
@@ -65,8 +65,8 @@ class AppCheckbox extends HTMLElement {
         }
 
         if (this.hasAttribute('checked')) {
-            $(box).addClass('app-checkbox-checked');
-            $(this).append(document.createElement('app-checkmark'));
+            ion_$(box).addClass('app-checkbox-checked');
+            ion_$(this).append(document.createElement('app-checkmark'));
         }
     }
 }
@@ -79,10 +79,10 @@ function app_slider_move(e) {
     
     switch (e.target.tagName) {
         case 'APP-SLIDER':
-            b = $(e.target).children().first();
+            b = ion_$(e.target).children().first();
             break;
         case 'DIV':
-            b = $(e.target);
+            b = ion_$(e.target);
             break;
         default:
             return;
@@ -100,8 +100,8 @@ function moving_slider(s) {
 
     let w = Number(s.parent().css('width').replace('px', ''));
     let l = Number((s.css('margin-left')).replace('px', ''));
-    let m = Number(getComputedStyle(html).getPropertyValue('--ion-app-slider-size').replace('px',''));
-    let o = (Number(getComputedStyle(html).getPropertyValue('--ion-app-slider-thumb-size').replace('px','')) - m) / 2;
+    let m = Number(getComputedStyle(ion_html).getPropertyValue('--ion-app-slider-size').replace('px',''));
+    let o = (Number(getComputedStyle(ion_html).getPropertyValue('--ion-app-slider-thumb-size').replace('px','')) - m) / 2;
 
     if (pos + l > pos + w - m) {
         s.css('margin-left', w - m);
@@ -112,7 +112,7 @@ function moving_slider(s) {
 
     let max = Number(s.parent().attr('max')),
         min = Number(s.parent().attr('min')),
-        b = Number(getComputedStyle(html).getPropertyValue('--ion-app-slider-size').replace('px', '')),
+        b = Number(getComputedStyle(ion_html).getPropertyValue('--ion-app-slider-size').replace('px', '')),
         inc = Number(s.parent().attr('increment'));
 
     let calc = (Math.round((Number(s.css('margin-left').replace('px', '')) / ((w - b) / (max - min)) + min) * (1 / inc)) / (1 / inc));
@@ -139,13 +139,13 @@ function app_checkbox_check(e) {
 
     switch (e.target.tagName) {
         case 'APP-CHECKBOX':
-            b = $(e.target).children().first();
+            b = ion_$(e.target).children().first();
             break;
         case 'DIV':
-            b = $(e.target);
+            b = ion_$(e.target);
             break;
         case 'TEXT':
-            b = $(e.target).parent().children().first();
+            b = ion_$(e.target).parent().children().first();
             break;
         default:
             return;
@@ -155,8 +155,8 @@ function app_checkbox_check(e) {
         b.removeClass('app-checkbox-checked');
         b.parent().removeAttr('checked');
         b.parent().children().each((i) => {
-            if ($(b.parent().children()[i]).prop('tagName') === 'APP-CHECKMARK') {
-                $(b.parent().children()[i]).remove();
+            if (ion_$(b.parent().children()[i]).prop('tagName') === 'APP-CHECKMARK') {
+                ion_$(b.parent().children()[i]).remove();
             }
         });
 
