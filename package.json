@@ -4,7 +4,7 @@
   "description": "Electron addition that features all the styles and js stuff i use",
   "main": "index.js",
   "dependencies": {
-    "electron": "^8.1.1",
+    "electron": "^9.4.0",
     "jquery": "^3.4.1"
   },
   "devDependencies": {},
